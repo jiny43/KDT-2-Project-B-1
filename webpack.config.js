@@ -6,6 +6,7 @@ const config = {
     path: path.resolve(__dirname, 'react'),
     filename: 'bundle.js',
   },
+  mode: 'development',
   module: {
     rules: [
       {
