@@ -9,4 +9,4 @@ import { join } from 'path';
     }),
   ],
 })
-export class clientModule {}
+export class reactModule {}
