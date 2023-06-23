@@ -1,4 +1,4 @@
-import path from 'path';
+const path = require('path');
 
 const config = {
   entry: 'react/index.tsx',
@@ -21,4 +21,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;
