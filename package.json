@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/kongukjae/KDT-2-Project-B-1/issues"
   },
-  "homepage": "https://github.com/kongukjae/KDT-2-Project-B-1#readme"
+  "homepage": "https://github.com/kongukjae/KDT-2-Project-B-1#readme",
+  "dependencies": {
+    "@nestjs/common": "^10.0.3",
+    "@nestjs/core": "^10.0.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.5.3"
+  }
 }
