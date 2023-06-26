@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
+//만든 컴포넌트 적용하는 곳
 import KakaoMap from './view/kakaoMap';
 
 const App = () => {
