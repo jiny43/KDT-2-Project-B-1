@@ -16,7 +16,7 @@ exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 let AppController = exports.AppController = class AppController {
     getIndex(res) {
-        res.sendFile('index.html', { root: './client/build' });
+        res.sendFile('index.html', { root: './client/public' });
     }
 };
 __decorate([

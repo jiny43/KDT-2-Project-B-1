@@ -5,6 +5,6 @@ import { Response } from 'express';
 export class AppController {
   @Get()
   getIndex(@Res() res: Response) {
-    res.sendFile('index.html', { root: './client/build' });
+    res.sendFile('index.html', { root: './client/public' });
   }
 }

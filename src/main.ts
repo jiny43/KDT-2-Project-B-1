@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // 정적 파일 제공 설정
-  app.useStaticAssets(join(__dirname, '..', 'client', 'build'));
+  app.useStaticAssets(join(__dirname, '..', 'client', 'public'));
 
   await app.listen(3001);
 }
