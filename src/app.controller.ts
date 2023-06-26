@@ -14,12 +14,12 @@ export class AppController {
 
   @Get()
   getIndex(@Res() res: Response): void {
-    res.sendFile(join(__dirname, '..', 'frontend/index.html'));
+    res.sendFile(join(__dirname, '..', '..', 'frontend/index.html'));
   }
 
   @Get('bundle.js')
   getReactFile(@Res() res: Response): void {
     res.setHeader('content-type', 'application/javascript');
-    res.sendFile(join(__dirname, '..', 'react', 'bundle.js'));
+    res.sendFile(join(__dirname, '..', '..', 'frontend', 'bundle.js'));
   }
 }
