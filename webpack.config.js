@@ -1,7 +1,8 @@
-import path from 'path';
+const path = require('path');
 
 const config = {
   entry: path.resolve(__dirname, 'react', 'index.tsx'),
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'frontend'),
     filename: 'bundle.js',
@@ -20,4 +21,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;
