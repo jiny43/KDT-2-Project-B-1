@@ -3,7 +3,7 @@ import path from 'path';
 const config = {
   entry: path.resolve(__dirname, 'react', 'index.tsx'),
   output: {
-    path: path.resolve(__dirname, 'react'),
+    path: path.resolve(__dirname, 'frontend'),
     filename: 'bundle.js',
   },
   module: {
