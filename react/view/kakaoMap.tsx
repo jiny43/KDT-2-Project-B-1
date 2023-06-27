@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map } from 'react-kakao-maps-sdk';
 
 const KakaoMap = () => {
   interface GeolocationType {
@@ -30,11 +30,7 @@ const KakaoMap = () => {
           center={{ lat: location.latitude, lng: location.longitude }}
           style={{ width: '800px', height: '600px' }}
           level={3}
-        >
-          <MapMarker
-            position={{ lat: location.latitude, lng: location.longitude }}
-          />
-        </Map>
+        ></Map>
       )}
     </>
   );
