@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEventHandler } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 
 const KakaoMap = () => {
@@ -7,6 +7,7 @@ const KakaoMap = () => {
     longitude: number;
   }
   const [location, setLocation] = useState<GeolocationType>();
+  const [level, setLevel] = useState<number>(3);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
@@ -23,14 +24,28 @@ const KakaoMap = () => {
     console.error(error);
   };
 
+  const plusLevelHandler = (): void => {
+    if (level < 14) {
+      setLevel(level + 1);
+    }
+  };
+  const minusLevelHandler = (): void => {
+    if (level > 1) {
+      setLevel(level - 1);
+    }
+  };
+
   return (
     <>
       {location && (
         <Map
           center={{ lat: location.latitude, lng: location.longitude }}
-          style={{ width: '800px', height: '600px' }}
-          level={3}
-        ></Map>
+          style={{ width: '390px', height: '820px' }}
+          level={level}
+        >
+          <button onClick={() => minusLevelHandler()}>-</button>
+          <button onClick={() => plusLevelHandler()}>+</button>
+        </Map>
       )}
     </>
   );
