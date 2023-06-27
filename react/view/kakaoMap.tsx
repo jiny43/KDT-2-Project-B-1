@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Map } from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 const KakaoMap = () => {
-  const [location, setLocation] = useState<GeolocationCoordinates>({}); // 기존 코드 수정
+  interface GeolocationType {
+    latitude: number;
+    longitude: number;
+  }
+  const [location, setLocation] = useState<GeolocationType>();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
@@ -10,20 +14,29 @@ const KakaoMap = () => {
 
   const successHandler = (response: GeolocationPosition): void => {
     console.log(response);
-    const { latitude, longitude } = response.coords;
-    setLocation({ latitude, longitude });
+    const { latitude, longitude }: GeolocationType = response.coords;
+    const result = { latitude, longitude };
+    setLocation(result);
   };
 
-  const errorHandler = (error) => {
+  const errorHandler = (error: GeolocationPositionError) => {
     console.error(error);
   };
 
   return (
-    <Map
-      center={{ lat: 33.450701, lng: 126.570667 }}
-      style={{ width: '800px', height: '600px' }}
-      level={3}
-    ></Map>
+    <>
+      {location && (
+        <Map
+          center={{ lat: location.latitude, lng: location.longitude }}
+          style={{ width: '800px', height: '600px' }}
+          level={3}
+        >
+          <MapMarker
+            position={{ lat: location.latitude, lng: location.longitude }}
+          />
+        </Map>
+      )}
+    </>
   );
 };
 

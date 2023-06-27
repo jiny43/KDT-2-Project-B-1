@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Start from './view/start';
+import KakaoMap from './view/kakaoMap';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Start />} />
+        <Route path="/" element={<KakaoMap />} />
       </Routes>
     </BrowserRouter>
   );
