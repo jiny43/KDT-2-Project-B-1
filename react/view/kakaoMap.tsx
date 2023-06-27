@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 
 const KakaoMap = () => {
-  const [location, setLocation] = React.useState(null);
+  const [location, setLocation] = useState<GeolocationCoordinates>({}); // 기존 코드 수정
 
-  const successHandler = (response): void => {
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
+  }, []);
+
+  const successHandler = (response: GeolocationPosition): void => {
     console.log(response);
     const { latitude, longitude } = response.coords;
     setLocation({ latitude, longitude });
@@ -14,9 +18,6 @@ const KakaoMap = () => {
     console.error(error);
   };
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
-  }, []);
   return (
     <Map
       center={{ lat: 33.450701, lng: 126.570667 }}
