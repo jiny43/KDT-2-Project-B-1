@@ -10,7 +10,12 @@ const GoogleMap = () => {
         <MapView
           style={{width: '100%', height: '100%'}}
           provider={PROVIDER_GOOGLE}
-          initialRegion={}
+          initialRegion={{
+            latitude: 36.3575,
+            longitude: 127.3808,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.005,
+          }}
         />
       </View>
     </>
