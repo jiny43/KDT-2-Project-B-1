@@ -30,8 +30,8 @@
       </activity>
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCdCQXeqzYH4CsAvwbsQ437IZypcY9gT_w"/>
-        <!-- android:value="AIzaSyCnCXJvaW6e6Nbnfb9ZJ0lZwkYgJwG3oyo"/> -->
+        android:value="AIzaSyCnCXJvaW6e6Nbnfb9ZJ0lZwkYgJwG3oyo"/>
+        <!-- android:value="AIzaSyCdCQXeqzYH4CsAvwbsQ437IZypcY9gT_w"/> -->
       <!-- You will also only need to add this uses-libray tag -->
       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
