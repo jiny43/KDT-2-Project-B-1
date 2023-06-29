@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -92,10 +93,21 @@ function App(): JSX.Element {
           <LearnMoreLinks />
         </View>
       </ScrollView>
+=======
+import React from 'react';
+import {SafeAreaView} from 'react-native';
+import InputTest from './View/getExample';
+
+function App(): JSX.Element {
+  return (
+    <SafeAreaView>
+      <InputTest />
+>>>>>>> origin
     </SafeAreaView>
   );
 }
 
+<<<<<<< HEAD
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
@@ -115,4 +127,6 @@ const styles = StyleSheet.create({
   },
 });
 
+=======
+>>>>>>> origin
 export default App;
