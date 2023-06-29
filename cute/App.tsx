@@ -1,11 +1,11 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import InputTest from './View/getExample';
+import GoogleMap from './View/GoogleMap';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <InputTest />
+      <GoogleMap />
     </SafeAreaView>
   );
 }
