@@ -7,7 +7,7 @@ import GoogleMap from './View/GoogleMap';
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <Map></Map>
+      {/* <Map></Map> */}
       <GoogleMap />
     </SafeAreaView>
   );
