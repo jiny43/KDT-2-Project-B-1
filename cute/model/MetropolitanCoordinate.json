@@ -1,0 +1,30 @@
+{
+  "daejeon": {
+    "latitude": 36.3575,
+    "longitude": 127.3808
+  },
+  "daegu": {
+    "latitude": 35.871389,
+    "longitude": 128.601389
+  },
+  "incheon": {
+    "latitude": 37.456111,
+    "longitude": 126.705278
+  },
+  "gwangju": {
+    "latitude": 35.159444,
+    "longitude": 126.8525
+  },
+  "busan": {
+    "latitude": 35.179444,
+    "longitude": 129.075556
+  },
+  "ulsan": {
+    "latitude": 35.538333,
+    "longitude": 129.311389
+  },
+  "Gangwondo": {
+    "latitude": 37.5,
+    "longitude": 127.25
+  }
+}
