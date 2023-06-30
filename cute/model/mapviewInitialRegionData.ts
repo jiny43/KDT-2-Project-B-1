@@ -4,7 +4,7 @@
  * @property {number} longitude - 경도 좌표
  */
 
-type MetropolitanCoordinateType = {
+export type MetropolitanCoordinateType = {
   latitude: number;
   longitude: number;
 };
@@ -15,7 +15,7 @@ type MetropolitanCoordinateType = {
  * @property {number} longitudeDelta - 경도 변화량
  */
 
-type latLngDeltaDataType = {
+export type latLngDeltaDataType = {
   latitudeDelta: number;
   longitudeDelta: number;
 };
@@ -28,7 +28,7 @@ type latLngDeltaDataType = {
  * @property {number} longitudeDelta - 경도 변화량
  */
 
-type MapViewInitialRegionType = MetropolitanCoordinateType &
+export type MapViewInitialRegionType = MetropolitanCoordinateType &
   latLngDeltaDataType;
 
 /**
