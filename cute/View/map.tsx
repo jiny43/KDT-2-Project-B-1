@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import MapView, {Region} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
@@ -6,57 +6,61 @@ import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 interface Coordinate {
   latitude: number;
   longitude: number;
-  latitudeDelta: number;
-  longitudeDelta: number;
+  latitudeDelta: number; // 수직 범위
+  longitudeDelta: number; // 수평 범위
 }
 
 const App = () => {
-  const [region, setRegion] = useState<Coordinate>({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-
-  const getLocation = async () => {
-    const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-
-    if (res === RESULTS.DENIED) {
-      const res2 = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-      if (res2 === RESULTS.GRANTED) {
-        fetchLocation();
-      }
-    } else if (res === RESULTS.GRANTED) {
-      fetchLocation();
-    }
-  };
-
-  const fetchLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setRegion({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        });
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  };
+  const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
+    null,
+  );
 
   useEffect(() => {
-    getLocation();
+    const checkLocationPermission = async () => {
+      const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+
+      if (res === RESULTS.DENIED) {
+        const res2 = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        if (res2 === RESULTS.GRANTED) {
+          getLocation();
+        }
+      } else if (res === RESULTS.GRANTED) {
+        getLocation();
+      }
+    };
+
+    const getLocation = () => {
+      Geolocation.getCurrentPosition(
+        position => {
+          const {latitude, longitude} = position.coords;
+
+          console.log(position.coords); // 위치 정보 출력
+
+          setInitialPosition({
+            latitude,
+            longitude,
+            latitudeDelta: 1,
+            longitudeDelta: 1,
+          });
+        },
+        error => {
+          console.log(error.code, error.message);
+        },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      );
+    };
+
+    checkLocationPermission();
   }, []);
 
   return (
-    <MapView
-      style={{width: '100%', height: '100%'}}
-      region={region}
-      showsUserLocation={true}
-    />
+    initialPosition && (
+      <MapView
+        style={{width: '100%', height: '100%'}}
+        initialRegion={initialPosition}
+        showsUserLocation={true}
+      />
+    )
   );
 };
 
