@@ -1,15 +1,16 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 // import InputTest from './View/getExample';
-import Map from './View/yoone';
-import Welcome from './First/Welcomescreen';
+import Map from './View/map';
+import GoogleMap from './View/GoogleMap';
+import OpenModalToClickMarker from './View/openModalToClickMarker';
 
 const App: React.FC = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <Welcome /> */}
-
-      <Map></Map>
+    <SafeAreaView>
+      {/* <Map></Map> */}
+      {/* <GoogleMap /> */}
+      <OpenModalToClickMarker />
     </SafeAreaView>
   );
 };
