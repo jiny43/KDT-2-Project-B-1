@@ -1,14 +1,25 @@
-import {Alert, Image, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Modal, TouchableOpacity, View} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
+import {useState} from 'react';
+import OpenModalToClickMarker from './openModalToClickMarker';
 
 const GoogleMap = () => {
+  const [windowBool, setWindowBool] = useState<boolean>(false);
   const latLngDeltaData: latLngDeltaDataType = {
     latitudeDelta: 0.1,
     longitudeDelta: 0.5,
+  };
+
+  const openModal = () => {
+    setWindowBool(true);
+  };
+
+  const closeModal = () => {
+    setWindowBool(false);
   };
 
   return (
@@ -22,9 +33,7 @@ const GoogleMap = () => {
             key={Object.keys(MetroCoord.daejeon)[0]}
             coordinate={MetroCoord.daejeon}
             description={'대전 소보로빵'}
-            onPress={() => {
-              Alert.alert('클릭해봐라 마!');
-            }}>
+            onPress={openModal}>
             <Image
               source={require('../Img/Daejeon_Twigim-soboro-bread.png')}
               style={{width: 70, height: 70}}
@@ -32,6 +41,13 @@ const GoogleMap = () => {
           </Marker>
         </MapView>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={windowBool}
+        onRequestClose={closeModal}>
+        <OpenModalToClickMarker />
+      </Modal>
     </>
   );
 };

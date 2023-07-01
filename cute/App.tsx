@@ -9,8 +9,8 @@ function App(): JSX.Element {
   return (
     <SafeAreaView>
       {/* <Map></Map> */}
-      {/* <GoogleMap /> */}
-      <OpenModalToClickMarker />
+      <GoogleMap />
+      {/* <OpenModalToClickMarker /> */}
     </SafeAreaView>
   );
 }
