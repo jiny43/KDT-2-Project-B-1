@@ -5,11 +5,11 @@ import { GoogleMap } from './View/map';
 import { ParkingModal } from './View/parkingModal'
 
 function App(): JSX.Element {
-  
+
   return (
-    <SafeAreaView>
-      <ParkingModal />
+    <SafeAreaView style={{ width: "100%", height: "100%", position: "relative" }}>
       <GoogleMap />
+      <ParkingModal />
     </SafeAreaView>
   );
 }
