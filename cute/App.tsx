@@ -1,12 +1,15 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import InputTest from './view/getExample';
-import { Map } from './View/map';
+import { GoogleMap } from './View/map';
+import { ParkingModal } from './View/parkingModal'
 
 function App(): JSX.Element {
+  
   return (
     <SafeAreaView>
-      <Map />
+      <ParkingModal />
+      <GoogleMap />
     </SafeAreaView>
   );
 }
