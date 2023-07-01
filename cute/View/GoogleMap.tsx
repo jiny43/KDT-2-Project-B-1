@@ -4,15 +4,12 @@ import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
-import {useRef} from 'react';
 
 const GoogleMap = () => {
   const latLngDeltaData: latLngDeltaDataType = {
     latitudeDelta: 0.1,
     longitudeDelta: 0.5,
   };
-
-  const ref = useRef<TouchableOpacity>(null);
 
   return (
     <>
