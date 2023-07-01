@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import InputTest from './view/getExample';
-import { Map } from './view/map';
+import { Map } from './View/map';
 
 function App(): JSX.Element {
   return (
