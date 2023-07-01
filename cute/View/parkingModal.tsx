@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export const ParkingModal = () => {
+
+  // useState로 모달창 on/off 조절
   const [modal, setModal] = useState(true);
 
+
   return (
-    <Modal visible={modal} animationType="fade" transparent={true}>
+    <Modal
+      visible={modal}
+      animationType="fade"
+      transparent={true}
+    >
       <View style={modalStyle.modalBackground}>
         <View style={modalStyle.modalContainer}>
           <View style={modalStyle.modalText}>
@@ -15,6 +22,7 @@ export const ParkingModal = () => {
             <TouchableOpacity
               style={modalStyle.madalbutton}
               onPress={() => {
+                // 클릭 시 모달 제거
                 setModal(false);
               }}
             >
@@ -23,6 +31,8 @@ export const ParkingModal = () => {
             <TouchableOpacity
               style={modalStyle.madalbutton}
               onPress={() => {
+                // 클릭 시 모달 제거.
+                // 여기서 주차장으로 이동될 함수 추가하면 됨.
                 setModal(false);
               }}
             >
