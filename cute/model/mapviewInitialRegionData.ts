@@ -34,7 +34,11 @@ export type MapViewInitialRegionType = MetropolitanCoordinateType &
 /**
  *
  * @param {MetropolitanCoordinateType} metroCoord 위도 경도 좌표
+ * @property {number} latitude - 위도 좌표
+ * @property {number} longitude - 경도 좌표
  * @param {latLngDeltaDataType} latLngDeltaData 위도 경도 레벨 데이터
+ * @property {number} latitudeDelta - 위도 변화량
+ * @property {number} longitudeDelta - 경도 변화량
  * @returns {MapViewInitialRegionType}
  */
 
