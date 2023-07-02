@@ -1,14 +1,14 @@
 import React from 'react';
+import {SafeAreaView} from 'react-native';
+import Map from './View/map';
 import {SafeAreaView, StyleSheet} from 'react-native';
 // import InputTest from './View/getExample';
 import GoogleMap from './View/GoogleMap';
-import OpenModalToClickMarker from './View/openModalToClickMarker';
+import SelectedPath from './View/SelectedPath';
 
 const App: React.FC = () => {
   return (
     <SafeAreaView>
-      {/* <Direction></Direction> */}
-      {/* <Map></Map> */}
       <GoogleMap />
     </SafeAreaView>
   );
