@@ -12,6 +12,7 @@ function App(): JSX.Element {
   );
 }
 
+//SafeAreaView 컴포넌트에 스타일을 적용하여 전체 영역을 차지하도록 설정
 const styles = StyleSheet.create({
   container: {
     flex: 1,
