@@ -1,10 +1,15 @@
 import React from "react";
 import { Text } from "react-native";
 
-const App = () => {
+//googlemap 에 prop 으로 전달해주기 !
+type SelectedPathProps = {
+  path: string;
+};
+
+const SelectedPath = ({ path }: SelectedPathProps) => {
   return (
-    <Text>대전 -&gt; 대구</Text>
+    <Text>{path}</Text>
   );
 }
 
-export default App;
+export default SelectedPath;
