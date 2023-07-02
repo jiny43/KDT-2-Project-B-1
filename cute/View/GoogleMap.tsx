@@ -1,4 +1,4 @@
-import { Image, View } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, { latLngDeltaDataType } from '../model/mapviewInitialRegionData';
@@ -10,11 +10,12 @@ const GoogleMap = () => {
     longitudeDelta: 0.5,
   };
 
+
   return (
     <>
-      <View>
+      <View style={{ flex: 1 }}>
         <MapView
-          style={{ width: '100%', height: '100%' }}
+          style={{ flex: 1 }}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}
         >
@@ -28,10 +29,9 @@ const GoogleMap = () => {
               style={{ width: 70, height: 70 }}
             />
           </Marker>
-          <SelectedPath path="대전 -> 대구" />
         </MapView>
+          <SelectedPath path="대전 -> 대구(팔공막창)"  />
       </View>
-      
     </>
   );
 };
