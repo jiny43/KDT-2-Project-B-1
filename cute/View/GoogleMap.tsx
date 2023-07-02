@@ -4,6 +4,7 @@ import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
+import SelectedPath from './SelectedPath';
 
 const GoogleMap = () => {
   const latLngDeltaData: latLngDeltaDataType = {
@@ -18,6 +19,7 @@ const GoogleMap = () => {
           style={{width: '100%', height: '100%'}}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}>
+            <SelectedPath></SelectedPath>
           <Marker
             key={Object.keys(MetroCoord.daejeon)[0]}
             coordinate={MetroCoord.daejeon}
