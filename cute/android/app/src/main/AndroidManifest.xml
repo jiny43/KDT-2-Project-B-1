@@ -11,11 +11,6 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
-      <meta-data 
-        android:name="com.google.android.geo.API_KEY" 
-        android:value="내구글키"
-      />
-      <uses-library android:name="org.apache.http.legacy" android:required="false"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -30,9 +25,7 @@
       </activity>
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCnCXJvaW6e6Nbnfb9ZJ0lZwkYgJwG3oyo"/>
-        <!-- android:value="AIzaSyCdCQXeqzYH4CsAvwbsQ437IZypcY9gT_w"/> -->
-      <!-- You will also only need to add this uses-libray tag -->
+        android:value="AIzaSyDnL9nWVwuhGkiNqgVyH48iw4YQTXyCh2o"/>
       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 </manifest>

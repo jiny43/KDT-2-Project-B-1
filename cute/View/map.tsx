@@ -34,6 +34,7 @@ export const GoogleMap = () => {
         // 10초이내 최신 위치 정보를 사용하겠다.
         maximumAge: 10000 }
       )
+      
       console.log(latitude,longitude)
 
   }, [])
