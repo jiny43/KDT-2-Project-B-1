@@ -16,6 +16,7 @@ const GoogleMap = () => {
   return (
     <>
       <View style={{ flex: 1 }}>
+        <SelectedPath path="대전 -> 대구(팔공막창)"  />
         <MapView
           style={{ flex: 1 }}
           provider={PROVIDER_GOOGLE}
@@ -32,7 +33,6 @@ const GoogleMap = () => {
             />
           </Marker>
         </MapView>
-          <SelectedPath path="대전 -> 대구(팔공막창)"  />
       </View>
     </>
   );
