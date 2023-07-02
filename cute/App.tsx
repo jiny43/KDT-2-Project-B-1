@@ -7,6 +7,7 @@ import OpenModalToClickMarker from './View/openModalToClickMarker';
 const App: React.FC = () => {
   return (
     <SafeAreaView>
+      {/* <Direction></Direction> */}
       {/* <Map></Map> */}
       <GoogleMap />
     </SafeAreaView>

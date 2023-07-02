@@ -4,8 +4,7 @@ import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
-import React, {useState} from 'react';
-import MeongOriModal from './MeongOriModal';
+import SelectedPath from './SelectedPath';
 
 const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
@@ -49,6 +48,7 @@ const GoogleMap = () => {
           }}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}>
+            <SelectedPath></SelectedPath>
           <Marker
             key={Object.keys(MetroCoord.daejeon)[0]}
             coordinate={MetroCoord.daejeon}
