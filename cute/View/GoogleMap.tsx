@@ -1,5 +1,5 @@
-import {Image, Text, View} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import { Image, View, StyleSheet } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, { latLngDeltaDataType } from '../model/mapviewInitialRegionData';
 import SelectedPath from './SelectedPath';
@@ -12,38 +12,12 @@ const GoogleMap = () => {
     longitudeDelta: 0.5,
   };
 
-  const openModal = () => {
-    setWindowBool(true);
-  };
-
-  const closeModal = () => {
-    setWindowBool(false);
-  };
-
-  const onMapReady = () => {
-    setIsMapReady(true);
-  };
-
-  const renderLoading = () => {
-    return (
-      <View style={{flex: 1}}>
-        <Text>Loading Map...</Text>
-      </View>
-    );
-  };
 
   return (
     <>
-      {isMapReady ? null : renderLoading()}
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <MapView
-          onMapReady={onMapReady}
-          style={{
-            width: '100%',
-            height: '100%',
-            minHeight: 800,
-            minWidth: 200,
-          }}
+          style={{ flex: 1 }}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}
         >
@@ -57,10 +31,9 @@ const GoogleMap = () => {
               style={{ width: 70, height: 70 }}
             />
           </Marker>
-          <SelectedPath path="대전 -> 대구" />
         </MapView>
+          <SelectedPath path="대전 -> 대구(팔공막창)"  />
       </View>
-      <MeongOriModal closeModal={closeModal} windowBool={windowBool} />
     </>
   );
 };
