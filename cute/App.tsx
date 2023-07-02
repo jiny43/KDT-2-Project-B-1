@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import InputTest from './view/getExample';
+// import InputTest from './view/getExample';
 import { GoogleMap } from './View/map';
 import { ParkingModal } from './View/parkingModal'
 
