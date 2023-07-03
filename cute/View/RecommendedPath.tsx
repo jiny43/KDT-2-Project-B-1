@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
 const RecommendedPath = () => {
-  const [pathData, setPathData] = useState(undefined);
+  const [pathData, setPathData] = useState({ minutes: 0, seconds: 0, distance: 0});
 
   useEffect(() => {
     const fetchPathData = async () => {
       try {
-        const response = await fetch("http://10.0.2.2:3000/kakao-api/directions");
+        const response = await fetch("http://10.0.2.2:3000/kakao-api/duration");
         const data = await response.json();
-        const minutes = Math.floor(data / 60); // 분
-        const seconds = data % 60; // 초
-        setPathData({ minutes, seconds });
+        const minutes = Math.floor(data.duration / 60); // 분
+        const seconds = data.duration % 60; // 초
+        const distanceInKm = Number(data.distance / 1000).toFixed(2); // 미터를 킬로미터로 변환하여 소수점 2자리까지 표시
+        setPathData({ minutes, seconds, distance: distanceInKm });
         console.log("Fetched path data:", data);
       } catch (error) {
         console.log("Error fetching path data:", error);
@@ -29,6 +30,10 @@ const RecommendedPath = () => {
         <View style={styles.contentContainer}>
           
           <Text style={styles.duration}>{`${pathData.minutes}분 ${pathData.seconds}초`}</Text>
+
+      <Text>예상 운전 거리:</Text>
+      <Text>{pathData.distance}km</Text>
+
           <Image
             source={require('../Img/ori_nav.png')}
             style={styles.image}
