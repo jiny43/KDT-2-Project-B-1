@@ -69,13 +69,14 @@ const ModalStyle = StyleSheet.create({
     backgroundColor: '#fafafa',
   },
   imgStyle: {
-    width: '100%',
-    height: '10%',
+    width: 90,
+    height: 70,
     resizeMode: 'contain',
     borderRadius: 100,
   },
   textStyle: {
     flex: 1,
+    textAlign: 'center',
   },
 });
 

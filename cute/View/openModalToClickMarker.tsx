@@ -19,7 +19,7 @@ const ModalStyle = StyleSheet.create({
   viewStyle: {
     width: '70%',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(225,225,225,0.90)',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     flex: 1,
