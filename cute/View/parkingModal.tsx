@@ -1,18 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-export const ParkingChooseModal = ({modalState}) => {
-  const [modal, setModal] = useState(false);
+interface modalProps {
+  modalState: (value: boolean) => void;
+}
+
+export const ParkingChooseModal = ({modalState}: modalProps) => {
+  const [modal, setModal] = useState(true);
 
   useEffect(() => {
     setModal(true);
   }, []);
 
+  // 아니오 클릭 시, 모달 사라지기.
   const handleNoButton = () => {
     modalState(true);
     setModal(false);
   };
 
+  // 네 클릭 시, 모달 사라지고, 다음 모달 띄우기.
   const handleYesButton = () => {
     modalState(false);
   };
