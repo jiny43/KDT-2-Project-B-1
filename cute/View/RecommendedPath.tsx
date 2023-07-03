@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
-
 const RecommendedPath = () => {
   const [pathData, setPathData] = useState(undefined);
 
@@ -10,7 +9,9 @@ const RecommendedPath = () => {
       try {
         const response = await fetch("http://10.0.2.2:3000/kakao-api/directions");
         const data = await response.json();
-        setPathData(data);
+        const minutes = Math.floor(data / 60); // 분
+        const seconds = data % 60; // 초
+        setPathData({ minutes, seconds });
         console.log("Fetched path data:", data);
       } catch (error) {
         console.log("Error fetching path data:", error);
@@ -25,19 +26,16 @@ const RecommendedPath = () => {
       <Text style={styles.title}>내비 추천</Text>
       {pathData && (
         <View style={styles.contentContainer}>
-          <Text style={styles.duration}>{pathData.duration}</Text>
+          <Text style={styles.duration}>{`${pathData.minutes}분 ${pathData.seconds}초`}</Text>
           <Image
-          source={require('../Img/ori_nav.png')}
-          style={styles.image}
-        />
+            source={require('../Img/ori_nav.png')}
+            style={styles.image}
+          />
         </View>
       )}
     </View>
   );
 };
-
-
-
 
 const styles = StyleSheet.create({
   //전체 컨테이너
@@ -77,6 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//todo 도착 예상 시간(prop)을 받아오는 로직 만들기
-//todo 컨테이너 클릭하면 종윤님 페이지 전환
 export default RecommendedPath;
