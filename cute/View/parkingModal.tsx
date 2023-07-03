@@ -1,10 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ParkingList} from './ParkingList';
 
-export const ParkingChooseModal = () => {
-  // useState로 모달창 on/off 조절
-  const [modal, setModal] = useState(true);
+export const ParkingChooseModal = ({modalState}) => {
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    setModal(true);
+  }, []);
+
+  const handleNoButton = () => {
+    modalState(true);
+    setModal(false);
+  };
+
+  const handleYesButton = () => {
+    modalState(false);
+  };
 
   return (
     <Modal visible={modal} animationType="fade" transparent={true}>
@@ -16,19 +27,12 @@ export const ParkingChooseModal = () => {
           <View style={modalStyle.modalbuttonView}>
             <TouchableOpacity
               style={modalStyle.madalbutton}
-              onPress={() => {
-                // 클릭 시 모달 제거
-                setModal(false);
-              }}>
+              onPress={handleNoButton}>
               <Text>아니요</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={modalStyle.madalbutton}
-              onPress={() => {
-                // 클릭 시 모달 제거.
-                // 여기서 주차장으로 이동될 함수 추가하면 됨.
-                setModal(false);
-              }}>
+              onPress={handleYesButton}>
               <Text>네</Text>
             </TouchableOpacity>
           </View>
