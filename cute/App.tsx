@@ -1,20 +1,19 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
+// import KakaoService from './View/kakaoService';
 import GoogleMap from './View/GoogleMap';
 import RecommendedPath from './View/RecommendedPath';
-// import Testpage from './View/Testpage';
 
-function App(): JSX.Element {
+function App() {
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Testpage></Testpage> */}
-      <GoogleMap />
-      <RecommendedPath />
+      <GoogleMap></GoogleMap>
+      <RecommendedPath></RecommendedPath>
+      {/* <KakaoService /> */}
     </SafeAreaView>
   );
 }
 
-//SafeAreaView 컴포넌트에 스타일을 적용하여 전체 영역을 차지하도록 설정
 const styles = StyleSheet.create({
   container: {
     flex: 1,

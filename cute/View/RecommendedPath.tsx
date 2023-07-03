@@ -1,20 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
+
 const RecommendedPath = () => {
+  const [pathData, setPathData] = useState(undefined);
+
+  useEffect(() => {
+    const fetchPathData = async () => {
+      try {
+        const response = await fetch("http://10.0.2.2:3000/kakao-api/directions");
+        const data = await response.json();
+        setPathData(data);
+        console.log("Fetched path data:", data);
+      } catch (error) {
+        console.log("Error fetching path data:", error);
+      }
+    };
+
+    fetchPathData();
+  }, []);
+
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>내비 추천</Text>
-      <View style={styles.contentContainer}>
-        <Text style={styles.duration}>45분</Text>
-        <Image
+      <Text style={styles.title}>내비 추천</Text>
+      {pathData && (
+        <View style={styles.contentContainer}>
+          <Text style={styles.duration}>{pathData.duration}</Text>
+          <Image
           source={require('../Img/ori_nav.png')}
           style={styles.image}
         />
-      </View>
+        </View>
+      )}
     </View>
   );
-}
+};
+
+
+
 
 const styles = StyleSheet.create({
   //전체 컨테이너
