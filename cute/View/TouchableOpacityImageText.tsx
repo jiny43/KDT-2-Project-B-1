@@ -8,32 +8,53 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 
-const ModalSelectThree = () => {
-  const [regionName, setRegionName] = useState<string | null>(null);
-  const [regionNumber, setRegionNumber] = useState<number>(0);
-  interface regionNameType {}
-  const regionImgSourceRequire = {
+type touchableOpacityType =
+  | 'busan'
+  | 'daejeon'
+  | 'daegu'
+  | 'gangwondo'
+  | 'gwangju'
+  | 'incheon'
+  | 'ulsan';
+
+interface regionImgType {
+  [key: string]: Array<[string, string, any]>;
+}
+
+const ModalSelectThree = (props: {region: touchableOpacityType}) => {
+  const regionImgSourceRequire: regionImgType = {
     daejeon: [
       ['duruchigi', '두부 두루치기', require('../Img/Daejeon_Duruchigi.png')],
-      [
-        'twigimSoboroBread',
-        '튀김소보로',
-        require('../Img/Daejeon_Twigim-soboro-bread.png'),
-      ],
+      ['bread', '빵', require('../Img/Daejeon_Twigim-soboro-bread.png')],
       ['kalguksu', '칼국수', require('../Img/Daejeon_Kalguksu.png')],
     ],
   };
+
+  const regionList: touchableOpacityType[] = [
+    'busan',
+    'daejeon',
+    'daegu',
+    'gangwondo',
+    'gwangju',
+    'incheon',
+    'ulsan',
+  ];
+
   return (
-    <TouchableOpacity>
-      <Image
-        source={regionImgSourceRequire.daejeon[0][2]}
-        alt={regionImgSourceRequire.daejeon[0][0]}
-        style={ModalStyle.imgStyle}
-      />
-      <Text style={ModalStyle.textStyle}>
-        {regionImgSourceRequire.daejeon[0][1]}
-      </Text>
-    </TouchableOpacity>
+    <>
+      {regionList.map(ele => {
+        if (props.region === ele) {
+          return regionImgSourceRequire[ele].map(element => {
+            return (
+              <TouchableOpacity key={element[0]}>
+                <Image source={element[2]} style={ModalStyle.imgStyle} />
+                <Text style={ModalStyle.textStyle}>{element[1]}</Text>
+              </TouchableOpacity>
+            );
+          });
+        }
+      })}
+    </>
   );
 };
 

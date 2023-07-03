@@ -10,7 +10,6 @@ const App: React.FC = () => {
     <SafeAreaView>
       {/* <Map></Map> */}
       <GoogleMap />
-      {/* <OpenModalToClickMarker /> */}
     </SafeAreaView>
   );
 };
