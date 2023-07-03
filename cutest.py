@@ -1,12 +1,12 @@
 import requests, pprint
 
+
 # 카카오 REST API 키를 설정합니다.
 kakao_api_key = "9d667c01eb07e9f64c1df5d6156dbbf2"
 
 # 출발지와 목적지의 좌표를 설정합니다.
 origin = "127.3853,36.3492"
 destination = "127.4332,36.3521"
-
 
 # API endpoint URL
 url = f"https://apis-navi.kakaomobility.com/v1/directions?origin={origin}&destination={destination}"
@@ -23,6 +23,22 @@ response = requests.get(url, headers=headers)
 # API 응답 확인
 if response.status_code == 200:
     data = response.json()  # 응답 데이터는 JSON 형식입니다.
-    pprint.pprint(data)
-else:
-    print(f"Error: {response.status_code}")
+
+    # 경로 좌표 추출
+polyline = []
+
+# 경로 좌표 추출
+sections = data["routes"][0]["sections"]
+for section in sections:
+    roads = section["roads"]
+    for road in roads:
+        vertexes = road["vertexes"]
+        for i in range(0, len(vertexes) - 1, 2):
+            x = vertexes[i]
+            y = vertexes[i + 1]
+            polyline.append((x, y))
+
+# 폴리라인 출력
+for point in polyline:
+    pprint.pprint(point)
+    # 폴리라인 좌표를 몽고DB에 저장
