@@ -1,5 +1,6 @@
 import {Button, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import ModalSelectThree from './TouchableOpacityImageText';
 
 function OpenModalToClickMarker() {
   return (
@@ -9,8 +10,11 @@ function OpenModalToClickMarker() {
           ModalStyle.width70,
           ModalStyle.backgroundColor,
           ModalStyle.height100,
+          ModalStyle.flexDirection,
         ]}>
-        <Text>일단 크기를 좀 보자</Text>
+        <ModalSelectThree />
+        <ModalSelectThree />
+        <ModalSelectThree />
       </View>
     </>
   );
@@ -25,6 +29,9 @@ const ModalStyle = StyleSheet.create({
   },
   backgroundColor: {
     backgroundColor: '#fafafa',
+  },
+  flexDirection: {
+    flexDirection: 'column',
   },
 });
 
