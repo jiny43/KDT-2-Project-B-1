@@ -15,6 +15,6 @@ export class AppController {
   }
   @Get()
   getDirections(): Promise<void> {
-    return this.kakaoApi.getDirections();
+    return this.kakaoApi.getDuration();
   }
 }
