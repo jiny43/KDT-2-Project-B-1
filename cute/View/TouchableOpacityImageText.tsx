@@ -11,6 +11,7 @@ import {
 const ModalSelectThree = () => {
   const [regionName, setRegionName] = useState<string | null>(null);
   const [regionNumber, setRegionNumber] = useState<number>(0);
+  interface regionNameType {}
   const regionImgSourceRequire = {
     daejeon: [
       ['duruchigi', '두부 두루치기', require('../Img/Daejeon_Duruchigi.png')],
