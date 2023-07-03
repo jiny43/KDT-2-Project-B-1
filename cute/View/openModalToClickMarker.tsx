@@ -1,11 +1,12 @@
 import {Button, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
 
 function OpenModalToClickMarker() {
   return (
     <>
       <View
         style={[
-          ModalStyle.container,
+          ModalStyle.width70,
           ModalStyle.backgroundColor,
           ModalStyle.height100,
         ]}>
@@ -16,17 +17,14 @@ function OpenModalToClickMarker() {
 }
 
 const ModalStyle = StyleSheet.create({
-  container: {
-    width: '60%',
+  width70: {
+    width: '70%',
   },
   height100: {
     height: '100%',
   },
-  height30: {
-    height: '30%',
-  },
   backgroundColor: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#fafafa',
   },
 });
 
