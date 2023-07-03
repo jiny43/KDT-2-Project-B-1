@@ -24,8 +24,10 @@ const RecommendedPath = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>내비 추천</Text>
+      <Text>예상 운전 시간:</Text>
       {pathData && (
         <View style={styles.contentContainer}>
+          
           <Text style={styles.duration}>{`${pathData.minutes}분 ${pathData.seconds}초`}</Text>
           <Image
             source={require('../Img/ori_nav.png')}
