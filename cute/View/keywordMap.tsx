@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
-import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {
+  View,
+  Text,
+  Modal,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
+import {getDistance} from 'geolib';
 
 const API_KEY = 'AIzaSyBxMsKTMvDP6CxDuDjIz9PIln46JK87kro';
 const YOUR_KEYWORD = 'parking'; // 원하는 키워드로 변경하세요.
@@ -10,9 +17,10 @@ export const ParkingMap = () => {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
   const [places, setPlaces] = useState<any[]>([]);
+  const [openModal, setOpenModal] = useState(true);
+  let count = 0;
 
   useEffect(() => {
-    // watchPosition 은 위치가 바뀔 때마다 자동으로 호출할 처리기 함수 사용
     const watchID = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
@@ -32,7 +40,6 @@ export const ParkingMap = () => {
     return () => Geolocation.clearWatch(watchID);
   }, []);
 
-  // 가까운 위치에 특정 키워드를 가진 장소 검색하기 위해 구글 플레이스 API 요청하기
   useEffect(() => {
     async function fetchPlaces() {
       if (latitude !== null && longitude !== null) {
@@ -56,32 +63,95 @@ export const ParkingMap = () => {
     fetchPlaces();
   }, [latitude, longitude]);
 
+  const ParkingList = (placeData: any) => {
+    const geoLocation = {
+      latitude: Number(latitude),
+      longitude: Number(longitude),
+    };
+
+    const locationLatLng = {
+      latitude: placeData.geometry.location.lat,
+      longitude: placeData.geometry.location.lng,
+    };
+
+    console.log(geoLocation, locationLatLng);
+    count++;
+    console.log(count);
+
+    return (
+      <View
+        style={{
+          width: '70%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignContent: 'center',
+          flex: 1,
+          backgroundColor: '#FFF9F9',
+        }}>
+        <View
+          style={{
+            width: '80%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+          <View
+            style={{
+              width: '100%',
+              height: '50%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text>이 름 : </Text>
+            <Text>{decodeURIComponent(placeData.name)}</Text>
+          </View>
+          <View
+            style={{
+              width: '100%',
+              height: '50%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text>거 리 : </Text>
+            <Text>{getDistance(geoLocation, locationLatLng)}m</Text>
+          </View>
+        </View>
+        {/* <Image
+          style={{}}
+          source={{
+            uri: placeData.
+          }}
+        /> */}
+        <TouchableOpacity style={{width: '20%'}}>
+          <Text>click</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <>
       {latitude && longitude && (
-        <MapView
-          style={{width: '100%', height: '100%'}}
-          initialRegion={{
-            latitude: Number(latitude),
-            longitude: Number(longitude),
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}>
-          {places.map((place, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: place.geometry.location.lat,
-                longitude: place.geometry.location.lng,
-              }}>
-              <Callout>
-                <View>
-                  <Text>{JSON.stringify(place)}</Text>
-                </View>
-              </Callout>
-            </Marker>
-          ))}
-        </MapView>
+        <Modal visible={openModal} animationType="fade" transparent={true}>
+          <View
+            style={{
+              width: '70%',
+              height: '70%',
+              alignContent: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              backgroundColor: '#FFF9F9',
+            }}>
+            <FlatList
+              data={places}
+              renderItem={({item}) => ParkingList(item)}
+            />
+          </View>
+        </Modal>
       )}
     </>
   );

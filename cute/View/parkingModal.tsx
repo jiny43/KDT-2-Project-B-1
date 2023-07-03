@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, {useState} from 'react';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ParkingMap} from './keywordMap';
 
 export const ParkingModal = () => {
-
   // useState로 모달창 on/off 조절
   const [modal, setModal] = useState(true);
 
-
   return (
-    <Modal
-      visible={modal}
-      animationType="fade"
-      transparent={true}
-    >
+    <Modal visible={modal} animationType="fade" transparent={true}>
       <View style={modalStyle.modalBackground}>
         <View style={modalStyle.modalContainer}>
           <View style={modalStyle.modalText}>
@@ -24,8 +19,7 @@ export const ParkingModal = () => {
               onPress={() => {
                 // 클릭 시 모달 제거
                 setModal(false);
-              }}
-            >
+              }}>
               <Text>아니요</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -34,13 +28,13 @@ export const ParkingModal = () => {
                 // 클릭 시 모달 제거.
                 // 여기서 주차장으로 이동될 함수 추가하면 됨.
                 setModal(false);
-              }}
-            >
+              }}>
               <Text>네</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+      {modal && <ParkingMap />}
     </Modal>
   );
 };
@@ -48,28 +42,28 @@ export const ParkingModal = () => {
 const modalStyle = StyleSheet.create({
   modalBackground: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContainer: {
     width: 200,
     height: 150,
-    backgroundColor: "#FFF9F9",
+    backgroundColor: '#FFF9F9',
   },
   modalText: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalbuttonView: {
-    height: "30%",
-    flexDirection: "row",
+    height: '30%',
+    flexDirection: 'row',
   },
   madalbutton: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor:"#F0D6D6"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F0D6D6',
   },
 });

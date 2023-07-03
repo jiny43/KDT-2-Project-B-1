@@ -39,42 +39,47 @@ export const GoogleMap = () => {
   }, []);
 
   return (
-    <MapView
-      // 지도의 스타일, 특히 사이즈를 꼭 넣어야한다.
-      style={{width: '100%', height: '100%'}}
-      // 처음 지도 로드되었을 때의 위치와 확대값
-      initialRegion={{
-        // 위도
-        latitude: Number(latitude),
-        // 경도
-        longitude: Number(longitude),
-        // 위도 델타 ( 지도 표시 영역의 위도 범위 )
-        latitudeDelta: 0.0522,
-        // 경도 델타 ( 지도 표시 영역의 경도 범위 )
-        longitudeDelta: 0.0221,
-      }}>
-      <Marker
-        // 핀이 찍힐 위도, 경도
-        coordinate={{
-          latitude: Number(latitude),
-          longitude: Number(longitude),
-        }}
-        // 핀의 제목
-        title="im here"
-        // 핀에 표시될 설명
-        description="ye gi da"
-      />
-      <Marker
-        // 핀이 찍힐 위도, 경도
-        coordinate={{
-          latitude: 36.339902,
-          longitude: 127.379383,
-        }}
-        // 핀의 제목
-        title="hi hi"
-        // 핀에 표시될 설명
-        description="ha yo ha yo"
-      />
-    </MapView>
+    <>
+      {latitude && longitude && (
+        <MapView
+          // 지도의 스타일, 특히 사이즈를 꼭 넣어야한다.
+          style={{width: '100%', height: '100%'}}
+          // 처음 지도 로드되었을 때의 위치와 확대값
+          initialRegion={{
+            // 위도
+            latitude: Number(latitude),
+            // 경도
+            longitude: Number(longitude),
+            // 위도 델타 ( 지도 표시 영역의 위도 범위 )
+            latitudeDelta: 0.0522,
+            // 경도 델타 ( 지도 표시 영역의 경도 범위 )
+            longitudeDelta: 0.0221,
+          }}
+          showsUserLocation={true}>
+          <Marker
+            // 핀이 찍힐 위도, 경도
+            coordinate={{
+              latitude: Number(latitude),
+              longitude: Number(longitude),
+            }}
+            // 핀의 제목
+            title="im here"
+            // 핀에 표시될 설명
+            description="ye gi da"
+          />
+          <Marker
+            // 핀이 찍힐 위도, 경도
+            coordinate={{
+              latitude: 36.339902,
+              longitude: 127.379383,
+            }}
+            // 핀의 제목
+            title="hi hi"
+            // 핀에 표시될 설명
+            description="ha yo ha yo"
+          />
+        </MapView>
+      )}
+    </>
   );
 };
