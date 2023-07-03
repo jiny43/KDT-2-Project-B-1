@@ -36,13 +36,11 @@ const GoogleMap = () => {
     );
   };
 
-  const mapRef = useRef<MapView>(null);
   return (
     <>
       {isMapReady ? null : renderLoading()}
       <View style={{flex: 1}}>
         <MapView
-          ref={mapRef}
           onMapReady={onMapReady}
           style={{
             width: '100%',
