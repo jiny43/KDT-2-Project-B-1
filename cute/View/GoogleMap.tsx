@@ -4,7 +4,7 @@ import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import OpenModalToClickMarker from './openModalToClickMarker';
 
 const GoogleMap = () => {
