@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ParkingMap} from './keywordMap';
+import {ParkingList} from './ParkingList';
 
-export const ParkingModal = () => {
+export const ParkingChooseModal = () => {
   // useState로 모달창 on/off 조절
   const [modal, setModal] = useState(true);
 
@@ -34,7 +34,6 @@ export const ParkingModal = () => {
           </View>
         </View>
       </View>
-      {modal && <ParkingMap />}
     </Modal>
   );
 };

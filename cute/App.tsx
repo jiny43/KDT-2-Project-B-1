@@ -1,15 +1,15 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {GoogleMap} from './View/map';
-import {ParkingModal} from './View/parkingModal';
+import {ParkingChooseModal} from './View/parkingModal';
 import {GooglePlacesInput} from './View/search';
-import {ParkingMap} from './View/keywordMap';
+import {ParkingList} from './View/ParkingList';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      {/* <ParkingMap /> */}
-      {/* <ParkingModal /> */}
+      {/* <ParkingList /> */}
+      <ParkingChooseModal />
       {/* <GooglePlacesInput /> */}
       <GoogleMap />
     </SafeAreaView>
