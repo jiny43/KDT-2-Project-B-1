@@ -3,6 +3,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, { latLngDeltaDataType } from '../model/mapviewInitialRegionData';
 import SelectedPath from './SelectedPath';
+import React from 'react';
 
 const GoogleMap = () => {
   const latLngDeltaData: latLngDeltaDataType = {
