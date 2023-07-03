@@ -2,10 +2,12 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import GoogleMap from './View/GoogleMap';
 import RecommendedPath from './View/RecommendedPath';
+// import Testpage from './View/Testpage';
 
 const App: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
+      {/* <Testpage></Testpage> */}
       <GoogleMap />
       <RecommendedPath />
     </SafeAreaView>

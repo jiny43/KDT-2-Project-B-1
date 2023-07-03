@@ -24,6 +24,13 @@ response = requests.get(url, headers=headers)
 # API 응답 확인
 if response.status_code == 200:
     data = response.json()  # 응답 데이터는 JSON 형식입니다.
-    pprint.pprint(data)
+    # pprint.pprint(data)
+    # pprint.pprint(data)
+    # 시간만 출력하기
+    pprint.pprint(data['routes'][0]['sections'][0]['duration'])
+    # 거리 출력
+    pprint.pprint(data['routes'][0]['sections'][0]['distance'])
+    
+
 else:
     print(f"Error: {response.status_code}")
