@@ -1,4 +1,4 @@
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Modal, StyleSheet, View} from 'react-native';
 import React from 'react';
 import ModalSelectThree from './TouchableOpacityImageText';
 
@@ -12,8 +12,6 @@ function OpenModalToClickMarker() {
           ModalStyle.height100,
           ModalStyle.flexDirection,
         ]}>
-        <ModalSelectThree />
-        <ModalSelectThree />
         <ModalSelectThree />
       </View>
     </>
@@ -31,7 +29,8 @@ const ModalStyle = StyleSheet.create({
     backgroundColor: '#fafafa',
   },
   flexDirection: {
-    flexDirection: 'column',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
 });
 

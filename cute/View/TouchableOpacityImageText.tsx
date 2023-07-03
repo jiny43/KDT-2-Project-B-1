@@ -1,32 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ImageProps,
-  Modal,
   StyleSheet,
   Text,
-  TextProps,
   TouchableOpacity,
   TouchableOpacityProps,
 } from 'react-native';
 
-interface ModalSelectThreeProps extends TouchableOpacityProps {
-  imageProps: ImageProps;
-  textProps: TextProps;
-  children: React.ReactNode;
-}
-
-const ModalSelectThree = (/* props: ModalSelectThreeProps */) => {
-  // const {imageProps, textProps, children, ...touchableOpacityProps} = props;
-  const duruchigiRequire = require('../Img/Daejeon_Duruchigi.png');
+const ModalSelectThree = () => {
+  const [regionName, setRegionName] = useState<string | null>(null);
+  const [regionNumber, setRegionNumber] = useState<number>(0);
+  const regionImgSourceRequire = {
+    daejeon: [
+      ['duruchigi', '두부 두루치기', require('../Img/Daejeon_Duruchigi.png')],
+      [
+        'twigimSoboroBread',
+        '튀김소보로',
+        require('../Img/Daejeon_Twigim-soboro-bread.png'),
+      ],
+      ['kalguksu', '칼국수', require('../Img/Daejeon_Kalguksu.png')],
+    ],
+  };
   return (
     <TouchableOpacity>
       <Image
-        source={duruchigiRequire}
-        alt="두부두루치기"
+        source={regionImgSourceRequire.daejeon[0][2]}
+        alt={regionImgSourceRequire.daejeon[0][0]}
         style={ModalStyle.imgStyle}
       />
-      <Text style={ModalStyle.textStyle}>두부두루치기</Text>
+      <Text style={ModalStyle.textStyle}>
+        {regionImgSourceRequire.daejeon[0][1]}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -42,8 +47,9 @@ const ModalStyle = StyleSheet.create({
     backgroundColor: '#fafafa',
   },
   imgStyle: {
-    width: '30%',
-    height: '30%',
+    width: '100%',
+    height: '10%',
+    resizeMode: 'contain',
     borderRadius: 100,
   },
   textStyle: {
