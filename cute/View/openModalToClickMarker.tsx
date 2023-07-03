@@ -1,4 +1,4 @@
-import {Button, Modal, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import React from 'react';
 import ModalSelectThree from './TouchableOpacityImageText';
 

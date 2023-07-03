@@ -2,10 +2,9 @@ import {Image, Modal, Text, View} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
-  LatLngTypes,
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import OpenModalToClickMarker from './openModalToClickMarker';
 
 const GoogleMap = () => {

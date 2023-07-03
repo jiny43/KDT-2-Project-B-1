@@ -1,12 +1,5 @@
-import React, {useState} from 'react';
-import {
-  Image,
-  ImageProps,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import React from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 type touchableOpacityType =
   | 'busan'
