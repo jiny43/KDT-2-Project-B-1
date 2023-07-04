@@ -19,10 +19,10 @@ const RecommendedPath = () => {
         const minutes = Math.floor(data.duration / 60); // 분
         const seconds = data.duration % 60; // 초
         const distanceInKm = Number((data.distance / 1000).toFixed(2)); // 미터를 킬로미터로 변환하여 소수점 2자리까지 표시
-        setPathData({minutes, seconds, distance: distanceInKm});
-        console.log('Fetched path data:', data);
+        setPathData({ minutes, seconds, distance: distanceInKm });
+        // console.log("Fetched path data:", data);
       } catch (error) {
-        console.log('Error fetching path data:', error);
+        // console.log("Error fetching path data:", error);
       }
     };
 
