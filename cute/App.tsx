@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 // import InputTest from './View/getExample';
-import Map from './View/map';
+import Map from './View/yoone';
 import Welcome from './First/Welcomescreen';
 
 const App: React.FC = () => {
