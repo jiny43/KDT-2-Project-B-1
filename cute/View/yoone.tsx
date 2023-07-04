@@ -5,6 +5,8 @@ import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import ComponentUnder from '../NaviView/Component_under';
 import ComponentUpper from '../NaviView/Component_upper';
+import RecommendedPath from './RecommendedPath';
+
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -52,8 +54,8 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.003034302,
-            longitudeDelta: 0.030304302,
+            latitudeDelta: 0.00320324302,
+            longitudeDelta: 0.0323104302,
           });
         },
         error => {
@@ -96,7 +98,7 @@ const App = () => {
           />
         </MapView>
       )}
-      <ComponentUnder />
+      <RecommendedPath />
     </View>
   );
 };
