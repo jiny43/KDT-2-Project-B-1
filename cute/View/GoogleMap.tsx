@@ -6,6 +6,8 @@ import addLatLngDate, {
 } from '../model/mapviewInitialRegionData';
 import React, {useState} from 'react';
 import OpenModalToClickMarker from './openModalToClickMarker';
+import MeongOriModal from './MeongOriModal';
+import {close} from 'fs';
 
 const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
@@ -61,7 +63,8 @@ const GoogleMap = () => {
           </Marker>
         </MapView>
       </View>
-      <Modal
+      <MeongOriModal closeModal={closeModal} windowBool={windowBool} />
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={windowBool}
@@ -88,7 +91,7 @@ const GoogleMap = () => {
           }}
         />
         <OpenModalToClickMarker closeModal={closeModal} />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

@@ -2,9 +2,13 @@ import React, {useState} from 'react';
 import {Image, Modal, StyleSheet, Text} from 'react-native';
 import OpenModalToClickMarker from './openModalToClickMarker';
 
-function MeongOriModal({closeModal}: {closeModal: () => void}) {
-  const [windowBool, setWindowBool] = useState<boolean>(false);
-
+function MeongOriModal({
+  closeModal,
+  windowBool,
+}: {
+  closeModal: () => void;
+  windowBool: boolean;
+}) {
   return (
     <Modal
       animationType="slide"
