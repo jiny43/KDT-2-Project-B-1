@@ -5,9 +5,11 @@ import OpenModalToClickMarker from './openModalToClickMarker';
 function MeongOriModal({
   closeModal,
   windowBool,
+  regionInfo,
 }: {
   closeModal: () => void;
   windowBool: boolean;
+  regionInfo: string;
 }) {
   return (
     <Modal
@@ -20,7 +22,7 @@ function MeongOriModal({
         source={require('../Img/MeongOri.png')}
         style={MeongOriStyle.ImageStyle}
       />
-      <OpenModalToClickMarker closeModal={closeModal} />
+      <OpenModalToClickMarker closeModal={closeModal} regionInfo={regionInfo} />
     </Modal>
   );
 }
