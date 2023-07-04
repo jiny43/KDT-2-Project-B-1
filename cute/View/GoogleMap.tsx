@@ -1,13 +1,11 @@
-import {Image, Modal, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
 import React, {useState} from 'react';
-import OpenModalToClickMarker from './openModalToClickMarker';
 import MeongOriModal from './MeongOriModal';
-import {close} from 'fs';
 
 const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
@@ -64,34 +62,6 @@ const GoogleMap = () => {
         </MapView>
       </View>
       <MeongOriModal closeModal={closeModal} windowBool={windowBool} />
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={windowBool}
-        onRequestClose={closeModal}>
-        <Text
-          style={{
-            fontSize: 30,
-            left: 28,
-            bottom: '88%',
-            zIndex: 3,
-            position: 'absolute',
-            fontWeight: '800',
-          }}>
-          {' '}
-          오리의 추천 맛집{' '}
-        </Text>
-        <Image
-          source={require('../Img/MeongOri.png')}
-          style={{
-            width: '70%',
-            height: '30%',
-            opacity: 0.65,
-            backgroundColor: 'rgba(255,255,255,0.9)',
-          }}
-        />
-        <OpenModalToClickMarker closeModal={closeModal} />
-      </Modal> */}
     </>
   );
 };
