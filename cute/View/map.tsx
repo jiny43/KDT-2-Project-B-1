@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import MapView, {Region} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
-import { Image, View, StyleSheet } from 'react-native';
+import {Image, View, StyleSheet} from 'react-native';
 import SelectedPath from './SelectedPath';
 
 interface Coordinate {
@@ -58,12 +58,12 @@ const App = () => {
   return (
     initialPosition && (
       <View>
-      <SelectedPath path="대전 -> 대구(팔공막창)"  />
-      <MapView
-        style={{width: '100%', height: '100%'}}
-        initialRegion={initialPosition}
-        showsUserLocation={true}
-      />
+        <SelectedPath path="대전 -> 대구(팔공막창)" />
+        <MapView
+          style={{width: '100%', height: '100%'}}
+          initialRegion={initialPosition}
+          showsUserLocation={true}
+        />
       </View>
     )
   );

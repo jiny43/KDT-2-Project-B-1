@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { KakaoApiController } from './kakao-api.controller';
+import { KakaoApiService } from './kakao-api.service';
 
 describe('KakaoApiController', () => {
   let controller: KakaoApiController;
@@ -7,6 +8,7 @@ describe('KakaoApiController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [KakaoApiController],
+      providers: [KakaoApiService],
     }).compile();
 
     controller = module.get<KakaoApiController>(KakaoApiController);
