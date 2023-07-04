@@ -104,6 +104,8 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    minHeight: 800,
+    minWidth: 200,
   },
   map: {
     flex: 1,
