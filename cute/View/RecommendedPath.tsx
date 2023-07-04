@@ -3,7 +3,10 @@ import { Text, View, StyleSheet, Image } from "react-native";
 
 const RecommendedPath = () => {
   const [pathData, setPathData] = useState({ minutes: 0, seconds: 0, distance: 0 });
+  //버튼을 눌렀을 때  주차장 우선 데이터로 변경 
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
 
+  // 추천 경로 데이터
   useEffect(() => {
     const fetchPathData = async () => {
       try {
@@ -22,6 +25,17 @@ const RecommendedPath = () => {
     fetchPathData();
   }, []);
 
+  useEffect(() => {
+    if (isButtonPressed) {
+      fetchPathData();
+      setIsButtonPressed(false); // 버튼 클릭 후 데이터를 가져온 뒤에는 다시 버튼을 누를 수 있도록 상태를 초기화합니다.
+    }
+  }, [isButtonPressed]);
+
+  const handleButtonPress = () => {
+    setIsButtonPressed(true);
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>내비 추천</Text>
@@ -30,6 +44,7 @@ const RecommendedPath = () => {
 
       <View style={styles.contentContainer}>
         <Text style={styles.distanceText}>예상 운전 거리:</Text>
+        {/* pathData 값이 존재할 때만 해당 UI를 렌더링 */}
         {pathData && <Text style={styles.distance}>{`${pathData.distance} km`}</Text>}
         <Image source={require('../Img/ori_nav.png')} style={styles.image} />
       </View>
@@ -37,6 +52,26 @@ const RecommendedPath = () => {
   );
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//styles
 const styles = StyleSheet.create({
   //전체 컨테이너
   container: {
