@@ -4,6 +4,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import GoogleMap from './View/GoogleMap';
 import RecommendedPath from './View/RecommendedPath';
 import Map from './View/map';
+import Parkingbutton from './View/Parkingbutton';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       {/* <GoogleMap></GoogleMap>
        */}
       <Map></Map>
+      <Parkingbutton></Parkingbutton>
       <RecommendedPath></RecommendedPath>
       {/* <KakaoService /> */}
     </SafeAreaView>

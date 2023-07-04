@@ -24,7 +24,7 @@ const RecommendedPath = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>내비 추천></Text>
+      <Text style={styles.title}>내비 추천</Text>
       <Text style={styles.distanceText}>예상 운전 시간:</Text>
       <Text style={styles.duration}>{`${pathData.minutes}분 ${pathData.seconds}초`}</Text>
 
