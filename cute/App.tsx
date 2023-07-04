@@ -4,6 +4,7 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 import Map from './View/map';
 import GoogleMap from './View/GoogleMap';
 import OpenModalToClickMarker from './View/openModalToClickMarker';
+import OpenModalToClickMarker from './View/openModalToClickMarker';
 
 const App: React.FC = () => {
   return (
