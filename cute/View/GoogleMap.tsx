@@ -1,12 +1,29 @@
-import {Image, Text, View} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {Text, View} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
 import React, {useState} from 'react';
 import MeongOriModal from './MeongOriModal';
+import MetroMarker from './MetroMarker';
 
+const GoogleMap = () => {
+  const [windowBool, setWindowBool] = useState<boolean>(false);
+  const [isMapReady, setIsMapReady] = useState<boolean>(false);
+  const latLngDeltaData: latLngDeltaDataType = {
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.5,
+  };
+  const openModal = () => {
+    setWindowBool(true);
+  };
+  const closeModal = () => {
+    setWindowBool(false);
+  };
+  const onMapReady = () => {
+    setIsMapReady(true);
+  };
 const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
   const [isMapReady, setIsMapReady] = useState<boolean>(false);
@@ -45,16 +62,7 @@ const GoogleMap = () => {
           }}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}>
-          <Marker
-            key={Object.keys(MetroCoord.daejeon)[0]}
-            coordinate={MetroCoord.daejeon}
-            description={'대전 소보로빵'}
-            onPress={openModal}>
-            <Image
-              source={require('../Img/Daejeon_Twigim-soboro-bread.png')}
-              style={{width: 70, height: 70}}
-            />
-          </Marker>
+          <MetroMarker openModal={openModal} />
         </MapView>
       </View>
       <MeongOriModal closeModal={closeModal} windowBool={windowBool} />
