@@ -1,11 +1,11 @@
-import {Image, Text, View} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import MetroCoord from '../model/MetropolitanCoordinate.json';
-import addLatLngDate, {
-  latLngDeltaDataType,
-} from '../model/mapviewInitialRegionData';
-import React, {useState} from 'react';
-import MeongOriModal from './MeongOriModal';
+// import {Image, View, StyleSheet} from 'react-native';
+// import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+// import MetroCoord from '../model/MetropolitanCoordinate.json';
+// import addLatLngDate, {
+//   latLngDeltaDataType,
+// } from '../model/mapviewInitialRegionData';
+// import SelectedPath from './SelectedPath';
+// import React from 'react';
 
 const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
