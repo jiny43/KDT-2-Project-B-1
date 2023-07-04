@@ -47,8 +47,8 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 1,
-            longitudeDelta: 1,
+            latitudeDelta: 0.3,
+            longitudeDelta: 0.3,
           });
 
           // 경로 정보 가져오기
