@@ -10,16 +10,46 @@ export type MetroCityList =
   | 'incheon'
   | 'ulsan';
 
-export interface regionImgType {
-  [key: string]: Array<[string, string, any]>;
-}
+export type regionImgType = {
+  [key in MetroCityList]: Array<[string, string, any]>;
+};
 
 const ModalSelectThree = (props: {region: MetroCityList}) => {
   const regionImgSourceRequire: regionImgType = {
+    busan: [
+      ['DongnaePajeon', '동래파전', require('../Img/MeongOri.png')],
+      ['DwaejiGukbap', '돼지국밥', require('../Img/MeongOri.png')],
+      ['Milmyeon', '밀면', require('../Img/MeongOri.png')],
+    ],
     daejeon: [
       ['duruchigi', '두부 두루치기', require('../Img/Daejeon_Duruchigi.png')],
       ['bread', '빵', require('../Img/Daejeon_Twigim-soboro-bread.png')],
       ['kalguksu', '칼국수', require('../Img/Daejeon_Kalguksu.png')],
+    ],
+    daegu: [
+      ['NapjakMandu', '납작만두', require('../Img/MeongOri.png')],
+      ['Makchang', '막창', require('../Img/MeongOri.png')],
+      ['Mungtigi', '뭉티기', require('../Img/MeongOri.png')],
+    ],
+    gangwondo: [
+      ['Mulhoe', '물회', require('../Img/MeongOri.png')],
+      ['Dakgangjeong', '닭강정', require('../Img/MeongOri.png')],
+      ['Makguksu', '막국수', require('../Img/MeongOri.png')],
+    ],
+    gwangju: [
+      ['Hanjeongsik', '한정식', require('../Img/MeongOri.png')],
+      ['Oritang', '오리탕', require('../Img/MeongOri.png')],
+      ['Tteokgalbi', '떡갈비', require('../Img/MeongOri.png')],
+    ],
+    incheon: [
+      ['SagogNaengmyeon', '사곶냉면', require('../Img/MeongOri.png')],
+      ['Hongeo', '홍어', require('../Img/MeongOri.png')],
+      ['Jjolmyeon', '쫄면', require('../Img/MeongOri.png')],
+    ],
+    ulsan: [
+      ['Bulgogi', '불고기', require('../Img/MeongOri.png')],
+      ['GoraeGogi', '고래고기', require('../Img/MeongOri.png')],
+      ['Ssambap', '쌈밥', require('../Img/MeongOri.png')],
     ],
   };
 
