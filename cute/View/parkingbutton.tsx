@@ -14,18 +14,19 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 400,
+    top: 530,
     left: 10,
-    backgroundColor: '#4A72D6',
+    backgroundColor: 'white',
     width: 100,
-    height: 100,
-    borderRadius: 10,
-    padding: 20,
-    justifyContent: 'center', // Align the content vertically
-    alignItems: 'center', // Align the content horizontally
+    height: 40,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center', 
   },
   buttonText: {
-    color: 'white', // Set the text color to white
+    color: 'black', 
+    fontWeight: 'bold',
+
   },
 });
 
