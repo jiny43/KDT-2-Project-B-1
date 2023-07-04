@@ -6,6 +6,11 @@ import { KakaoApiService } from './kakao-api/kakao-api.service';
 describe('AppController', () => {
   let appController: AppController;
 
+  it('should be defined', () => {
+    // replace the following with your actual test
+    expect(true).toBe(true);
+  });
+
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],

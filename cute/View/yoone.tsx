@@ -52,8 +52,8 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.000034302,
-            longitudeDelta: 0.000304302,
+            latitudeDelta: 0.003034302,
+            longitudeDelta: 0.030304302,
           });
         },
         error => {
