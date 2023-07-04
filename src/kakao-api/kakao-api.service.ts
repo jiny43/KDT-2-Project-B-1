@@ -63,7 +63,7 @@ export class KakaoApiService {
       const duration = data.routes[0].sections[0].duration;
       const distance = data.routes[0].sections[0].distance;
       console.log(duration, distance);
-      return { duration, distance }; // 객체로 값을 반환);
+      return { duration, distance }; // 객체로 값을 반환
     } catch (error) {
       console.error(`Error: ${error}`);
       return null;
