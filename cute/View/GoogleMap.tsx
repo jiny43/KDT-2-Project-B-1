@@ -12,8 +12,8 @@ const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
   const [isMapReady, setIsMapReady] = useState<boolean>(false);
   const latLngDeltaData: latLngDeltaDataType = {
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.5,
+    latitudeDelta: 1,
+    longitudeDelta: 1,
   };
   const openModal = () => {
     setWindowBool(true);
