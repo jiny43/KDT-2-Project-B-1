@@ -7,8 +7,9 @@ import Welcome from './First/Welcomescreen';
 const App: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Welcome />
-      {/* <Map></Map> */}
+      {/* <Welcome /> */}
+
+      <Map></Map>
     </SafeAreaView>
   );
 };

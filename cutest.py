@@ -41,4 +41,4 @@ for section in sections:
 # 폴리라인 출력
 for point in polyline:
     pprint.pprint(point)
-    # 폴리라인 좌표를 몽고DB에 저장
+    
