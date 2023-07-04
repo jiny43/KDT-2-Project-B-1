@@ -66,6 +66,27 @@ const GoogleMap = () => {
         transparent={true}
         visible={windowBool}
         onRequestClose={closeModal}>
+        <Text
+          style={{
+            fontSize: 30,
+            left: 28,
+            bottom: '88%',
+            zIndex: 3,
+            position: 'absolute',
+            fontWeight: '800',
+          }}>
+          {' '}
+          오리의 추천 맛집{' '}
+        </Text>
+        <Image
+          source={require('../Img/MeongOri.png')}
+          style={{
+            width: '70%',
+            height: '30%',
+            opacity: 0.65,
+            backgroundColor: 'rgba(255,255,255,0.9)',
+          }}
+        />
         <OpenModalToClickMarker closeModal={closeModal} />
       </Modal>
     </>

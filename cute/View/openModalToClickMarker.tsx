@@ -9,7 +9,7 @@ function OpenModalToClickMarker({closeModal}: {closeModal: () => void}) {
         <ModalSelectThree region="daejeon" />
       </View>
       <View style={ModalStyle.buttonStyle}>
-        <Button title="Close" onPress={closeModal} />
+        <Button title="  X  " onPress={closeModal} />
       </View>
     </>
   );
@@ -26,6 +26,10 @@ const ModalStyle = StyleSheet.create({
   },
   buttonStyle: {
     padding: 10,
+    zIndex: 1,
+    position: 'absolute',
+    right: '30%',
+    bottom: 0,
   },
 });
 
