@@ -13,8 +13,4 @@ export class AppController {
       console.error('정보를 받아오는데 실패했습니다.', error);
     }
   }
-  @Get()
-  getDirections(): Promise<void> {
-    return this.kakaoApi.getDuration();
-  }
 }
