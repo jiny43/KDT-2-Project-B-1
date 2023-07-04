@@ -16,10 +16,10 @@ export class KakaoApiService {
     try {
       const response = await axios.get(url, { headers });
       const data = response.data; // 응답 데이터
-
-      // 경로 좌표 추출
+      const duration = data.routes[0].sections[0].duration; //시간
+      const distance = data.routes[0].sections[0].distance; //거리
       const polyline = [];
-      const sections = data['routes'][0]['sections'];
+      const sections = data['routes'][0]['sections']; //경로
       for (const section of sections) {
         const roads = section['roads'];
         for (const road of roads) {
@@ -32,7 +32,8 @@ export class KakaoApiService {
         }
       }
 
-      return polyline; // 폴리라인 반환
+      console.log(duration, distance, polyline);
+      return { duration, distance, polyline }; // 객체로 값을 반환
     } catch (error) {
       console.error(`Error: ${error}`);
       return null;
