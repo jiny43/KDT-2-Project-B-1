@@ -11,12 +11,14 @@ import MetroMarker from './MetroMarker';
 const GoogleMap = () => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
   const [isMapReady, setIsMapReady] = useState<boolean>(false);
+  const [regionInfo, setRegionInfo] = useState<string>('');
   const latLngDeltaData: latLngDeltaDataType = {
     latitudeDelta: 1,
     longitudeDelta: 1,
   };
-  const openModal = () => {
+  const openModal = (regionInfo: string) => {
     setWindowBool(true);
+    setRegionInfo(regionInfo);
   };
   const closeModal = () => {
     setWindowBool(false);
@@ -49,7 +51,11 @@ const GoogleMap = () => {
           <MetroMarker openModal={openModal} />
         </MapView>
       </View>
-      <MeongOriModal closeModal={closeModal} windowBool={windowBool} />
+      <MeongOriModal
+        closeModal={closeModal}
+        windowBool={windowBool}
+        regionInfo={regionInfo}
+      />
     </>
   );
 };
