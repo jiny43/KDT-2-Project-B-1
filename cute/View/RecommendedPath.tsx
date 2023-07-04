@@ -25,15 +25,7 @@ const RecommendedPath = () => {
     fetchPathData();
   }, []);
 
-  useEffect(() => {
-    if (isButtonPressed) {
-      fetchPathData();
-      setIsButtonPressed(false); // 버튼 클릭 후 데이터를 가져온 뒤에는 다시 버튼을 누를 수 있도록 상태를 초기화합니다.
-    }
-  }, [isButtonPressed]);
 
-  const handleButtonPress = () => {
-    setIsButtonPressed(true);
 
 
   return (
