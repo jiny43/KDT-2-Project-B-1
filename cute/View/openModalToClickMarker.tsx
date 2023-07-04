@@ -2,7 +2,13 @@ import {Button, StyleSheet, View} from 'react-native';
 import React from 'react';
 import ModalSelectThree from './TouchableOpacityImageText';
 
-function OpenModalToClickMarker({closeModal}: {closeModal: () => void}) {
+function OpenModalToClickMarker({
+  closeModal,
+  regionInfo,
+}: {
+  closeModal: () => void;
+  regionInfo: string;
+}) {
   return (
     <>
       <View style={ModalStyle.viewStyle}>
