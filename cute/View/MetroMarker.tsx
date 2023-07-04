@@ -24,17 +24,34 @@ const MetroMarker = ({
     incheon: ['인천 홍어', require('../Img/Incheon_Hongeo.png')],
     ulsan: ['울산 고래고기', require('../Img/Ulsan_Gorae-gogi.png')],
   };
+
+  const regionList: MetroCityList[] = [
+    'busan',
+    'daegu',
+    'daejeon',
+    'gangwondo',
+    'gwangju',
+    'incheon',
+    'ulsan',
+  ];
+
   return (
-    <Marker
-      key={Object.keys(MetroCoord.daejeon)[0]}
-      coordinate={MetroCoord.daejeon}
-      description={MetroRegionInfo.daejeon[0]}
-      onPress={openModal}>
-      <Image
-        source={MetroRegionInfo.daejeon[1]}
-        style={{width: 70, height: 70}}
-      />
-    </Marker>
+    <>
+      {regionList.map(ele => {
+        return (
+          <Marker
+            key={Object.keys(MetroCoord[ele])[0]}
+            coordinate={MetroCoord[ele]}
+            description={MetroRegionInfo[ele][0]}
+            onPress={openModal}>
+            <Image
+              source={MetroRegionInfo[ele][1]}
+              style={{width: 70, height: 70}}
+            />
+          </Marker>
+        );
+      })}
+    </>
   );
 };
 
