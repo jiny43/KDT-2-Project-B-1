@@ -3,9 +3,8 @@ import {View, StyleSheet} from 'react-native';
 import MapView, {Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
-import ComponentUpper from '../Naviview/Component_upper';
-import ComponentUnder from '../Naviview/Component_under';
-
+import ComponentUnder from '../NaviView/Component_under';
+import ComponentUpper from '../NaviView/Component_upper';
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -53,8 +52,8 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.0000302,
-            longitudeDelta: 0.0003002,
+            latitudeDelta: 0.00003302,
+            longitudeDelta: 0.00030302,
           });
         },
         error => {
