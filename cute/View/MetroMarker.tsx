@@ -6,10 +6,8 @@ import {MetroCityList} from './TouchableOpacityImageText';
 
 const MetroMarker = ({
   openModal,
-}: // region,
-{
+}: {
   openModal: (regionInfo: string) => void;
-  // region: string;
 }) => {
   type MetroMarkerType = {
     [key in MetroCityList]: [string, string, any];
