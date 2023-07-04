@@ -1,15 +1,30 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {GoogleMap} from './View/map';
-import {ModalComponent} from './View/Modal';
+import { SafeAreaView, StyleSheet } from 'react-native';
+// import KakaoService from './View/kakaoService';
+// import GoogleMap from './View/GoogleMap';
+import RecommendedPath from './View/RecommendedPath';
+import Map from './View/map';
+// import Parkingbutton from './View/Parkingbutton';
 
-function App(): JSX.Element {
+function App() {
   return (
-    <SafeAreaView>
-      <ModalComponent />
-      <GoogleMap />
+    <SafeAreaView style={styles.container}>
+      {/* <GoogleMap></GoogleMap>
+       */}
+      <Map></Map>
+      {/* <Parkingbutton></Parkingbutton>/ */}
+      <RecommendedPath></RecommendedPath>
+      {/* <KakaoService /> */}
     </SafeAreaView>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+
 
 export default App;
