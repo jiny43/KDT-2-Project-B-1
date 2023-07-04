@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-type touchableOpacityType =
+export type MetroCityList =
   | 'busan'
   | 'daejeon'
   | 'daegu'
@@ -10,11 +10,11 @@ type touchableOpacityType =
   | 'incheon'
   | 'ulsan';
 
-interface regionImgType {
+export interface regionImgType {
   [key: string]: Array<[string, string, any]>;
 }
 
-const ModalSelectThree = (props: {region: touchableOpacityType}) => {
+const ModalSelectThree = (props: {region: MetroCityList}) => {
   const regionImgSourceRequire: regionImgType = {
     daejeon: [
       ['duruchigi', '두부 두루치기', require('../Img/Daejeon_Duruchigi.png')],
@@ -23,7 +23,7 @@ const ModalSelectThree = (props: {region: touchableOpacityType}) => {
     ],
   };
 
-  const regionList: touchableOpacityType[] = [
+  const regionList: MetroCityList[] = [
     'busan',
     'daejeon',
     'daegu',
