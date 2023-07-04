@@ -3,11 +3,14 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 // import KakaoService from './View/kakaoService';
 import GoogleMap from './View/GoogleMap';
 import RecommendedPath from './View/RecommendedPath';
+import Map from './View/map';
 
 function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <GoogleMap></GoogleMap>
+      {/* <GoogleMap></GoogleMap>
+       */}
+      <Map></Map>
       <RecommendedPath></RecommendedPath>
       {/* <KakaoService /> */}
     </SafeAreaView>

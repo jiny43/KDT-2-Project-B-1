@@ -24,8 +24,8 @@ const RecommendedPath = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>내비 추천</Text>
-      <Text>예상 운전 시간:</Text>
+      <Text style={styles.title}>내비 추천></Text>
+      <Text style={styles.distanceText}>예상 운전 시간:</Text>
       <Text style={styles.duration}>{`${pathData.minutes}분 ${pathData.seconds}초`}</Text>
 
       <View style={styles.contentContainer}>
@@ -66,9 +66,12 @@ const styles = StyleSheet.create({
   },
   //이미지
   image: {
-    width: 70,
-    height: 70,
+    width: 100,
+    height: 100,
     // marginLeft: 'auto',
+    position: "absolute",
+    bottom : 20,
+    left : 160,
   },
   //내비 추천
   title: {
@@ -76,16 +79,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'yellow',
   },
-  //예상 운전 거리 텍스트
+  //예상 운전 거리,시간 텍스트
   distanceText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
   },
   //예상 운전 거리
   distance: {
     fontSize: 16,
-    color: 'white',
+    color: 'black',
   },
 });
 
