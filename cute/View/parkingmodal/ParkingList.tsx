@@ -11,7 +11,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {getDistance} from 'geolib';
 
 // API키->추후 env 등 안전하게 변경하기.
-const API_KEY = 'API 키(웹가능으로 할것)';
+const API_KEY = 'AIzaSyBxMsKTMvDP6CxDuDjIz9PIln46JK87kro';
 
 // 검색할 키워드 = 주차장 (영어만가능)
 const YOUR_KEYWORD = 'parking';
@@ -160,7 +160,7 @@ export const ParkingList = () => {
             setOpenModal(false);
           }}>
           <Image
-            source={require('../Img/driverduck.png')}
+            source={require('../../Img/driverduck.png')}
             style={{width: '60%', height: '80%'}}
           />
         </TouchableOpacity>

@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {ParkingChooseModal} from './parkingModal';
+import {ParkingChooseModal} from './ParkingChooseModal';
 import {ParkingList} from './ParkingList';
 
-export const ModalComponent = () => {
+export const ParkingModal = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -26,4 +26,6 @@ export const ModalComponent = () => {
     console.log('주차장목록보이니', showModal);
     return <ParkingList />;
   }
+
+  return null;
 };
