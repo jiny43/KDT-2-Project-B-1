@@ -1,9 +1,13 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
 import { KakaoApiService } from './kakao-api/kakao-api.service';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly kakaoApi: KakaoApiService) {}
+  constructor(
+    private readonly kakaoApi: KakaoApiService,
+    private readonly appService: AppService,
+  ) {}
   @Post('inputData')
   handleInputData(@Body('value') value: string): { status: string } {
     try {
@@ -16,5 +20,13 @@ export class AppController {
   @Get()
   getDirections(): Promise<void> {
     return this.kakaoApi.getDuration();
+  }
+
+  @Get()
+  async performTask(): Promise<string> {
+    // const url = 'https://api.example.com/data';
+    // const outputPath = './data.json';
+    await this.appService.getHello();
+    return 'Data fetched and saved!';
   }
 }
