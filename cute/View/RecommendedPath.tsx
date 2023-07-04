@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Image } from "react-native";
 const RecommendedPath = () => {
   const [pathData, setPathData] = useState({ minutes: 0, seconds: 0, distance: 0 });
   //버튼을 눌렀을 때  주차장 우선 데이터로 변경 
-  const [isButtonPressed, setIsButtonPressed] = useState(false);
+  // const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   // 추천 경로 데이터
   useEffect(() => {
