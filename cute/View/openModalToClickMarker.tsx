@@ -1,6 +1,6 @@
 import {Button, StyleSheet, View} from 'react-native';
 import React from 'react';
-import ModalSelectThree from './TouchableOpacityImageText';
+import ModalSelectThree, {MetroCityList} from './TouchableOpacityImageText';
 
 function OpenModalToClickMarker({
   closeModal,
@@ -12,7 +12,7 @@ function OpenModalToClickMarker({
   return (
     <>
       <View style={ModalStyle.viewStyle}>
-        <ModalSelectThree region="daejeon" />
+        <ModalSelectThree region={regionInfo as MetroCityList} />
       </View>
       <View style={ModalStyle.buttonStyle}>
         <Button title="  X  " onPress={closeModal} />
