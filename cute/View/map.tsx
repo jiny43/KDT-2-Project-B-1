@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import MapView, {Region} from 'react-native-maps';
+import MapView, {Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import { Image, View, StyleSheet } from 'react-native';
