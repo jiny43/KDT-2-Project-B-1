@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MapView, { Polyline } from 'react-native-maps';
+import MapView, { Polyline, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { View } from 'react-native';
@@ -47,8 +47,8 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.3,
-            longitudeDelta: 0.3,
+            latitudeDelta: 0.5,
+            longitudeDelta: 0.5,
           });
 
           // 경로 정보 가져오기
@@ -88,11 +88,24 @@ const App = () => {
           showsUserLocation={true}
         >
           {coordinates.length > 0 && (
-            <Polyline
-              coordinates={coordinates}
-              strokeWidth={10}
-              strokeColor="red"
-            />
+            <>
+              <Polyline
+                coordinates={coordinates}
+                strokeWidth={5}
+                strokeColor="#4A72D6"
+                // strokeColor="orange"
+              />
+              <Marker
+                coordinate={coordinates[0]} // 출발지 좌표
+                title="출발지"
+                description="대전"
+              />
+              <Marker
+                coordinate={coordinates[coordinates.length - 1]} //도착지 좌표
+                title="도착지"
+                description="대구(팔공막창)"
+              />
+            </>
           )}
         </MapView>
       </View>
