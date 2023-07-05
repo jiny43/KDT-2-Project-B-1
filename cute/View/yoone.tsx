@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import MapView, {Polyline} from 'react-native-maps';
+import React, {useRef, useState, useEffect} from 'react';
+import {View, StyleSheet, Image, ImageRequireSource} from 'react-native';
+import MapView, {Polyline, Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import ComponentUnder from '../NaviView/Component_under';
@@ -20,6 +20,7 @@ interface Point {
 }
 
 const App = () => {
+  const mapRef = useRef<MapView>(null);
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
     null,
   );
@@ -28,7 +29,6 @@ const App = () => {
   useEffect(() => {
     const checkLocationPermission = async () => {
       const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-
       if (res === RESULTS.DENIED) {
         const res2 = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
         if (res2 === RESULTS.GRANTED) {
@@ -38,25 +38,42 @@ const App = () => {
         getLocation();
       }
     };
-
-    const getLocation = async () => {
-      Geolocation.getCurrentPosition(
-        async position => {
+    // 점차 확대되는 느낌을 주기위해 settime 메서드 사용,....
+    const getLocation = () => {
+      Geolocation.watchPosition(
+        position => {
           const {latitude, longitude} = position.coords;
-
-          const url = `http://10.0.2.2:3000/kakao-api/directions/${latitude},${longitude}`;
-          const response = await fetch(url);
-
-          if (!response.ok) {
-            console.error('Server Error', response.statusText);
-          }
-
-          setInitialPosition({
+          const newRegion: Coordinate = {
             latitude,
             longitude,
-            latitudeDelta: 0.00320324302,
-            longitudeDelta: 0.0323104302,
-          });
+            latitudeDelta: 0.6,
+            longitudeDelta: 0.6,
+          };
+          setInitialPosition(newRegion);
+
+          if (mapRef.current) {
+            setTimeout(() => {
+              mapRef.current?.animateToRegion(
+                {
+                  ...newRegion,
+                  latitudeDelta: 0.02,
+                  longitudeDelta: 0.02,
+                },
+                2000,
+              );
+            }, 1000);
+
+            setTimeout(() => {
+              mapRef.current?.animateToRegion(
+                {
+                  ...newRegion,
+                  latitudeDelta: 0.0001,
+                  longitudeDelta: 0.0001,
+                },
+                2000,
+              );
+            }, 3000);
+          }
         },
         error => {
           console.log(error.code, error.message);
@@ -65,32 +82,45 @@ const App = () => {
       );
     };
 
+    checkLocationPermission();
+  }, []);
+
+  useEffect(() => {
     const fetchCoordinates = async () => {
-      const response = await fetch(
-        `http://10.0.2.2:3000/kakao-api/directions/${initialPosition?.longitude},${initialPosition?.latitude}`,
-      );
-      const data = await response.json();
+      if (initialPosition) {
+        const response = await fetch(
+          `http://10.0.2.2:3000/kakao-api/directions/${initialPosition.longitude},${initialPosition.latitude}`,
+        );
+        const data = await response.json();
 
-      const transformedCoordinates = data.map((coord: [number, number]) => ({
-        latitude: coord[1],
-        longitude: coord[0],
-      }));
+        const transformedCoordinates = data.map((coord: [number, number]) => ({
+          latitude: coord[1],
+          longitude: coord[0],
+        }));
 
-      setCoordinates(transformedCoordinates);
+        setCoordinates(transformedCoordinates);
+      }
     };
 
-    checkLocationPermission();
     fetchCoordinates();
-  }, []);
+  }, [initialPosition]);
+
+  const userLocationMarker: ImageRequireSource = require('../Img/ori_nav.png');
 
   return (
     <View style={styles.container}>
       <ComponentUpper />
       {initialPosition && (
         <MapView
+          ref={mapRef}
           style={styles.map}
           initialRegion={initialPosition}
-          showsUserLocation={true}>
+          showsUserLocation={false}>
+          <Marker
+            coordinate={initialPosition}
+            image={userLocationMarker}
+            style={styles.marker}
+          />
           <Polyline
             coordinates={coordinates}
             strokeColor="red"
@@ -111,6 +141,11 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  marker: {
+    width: 50,
+    height: 50,
+    color: 'red',
   },
 });
 

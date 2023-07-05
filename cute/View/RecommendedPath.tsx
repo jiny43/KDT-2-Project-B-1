@@ -16,6 +16,8 @@ const RecommendedPath = () => {
       try {
         const response = await fetch('http://10.0.2.2:3000/kakao-api/duration');
         const data = await response.json();
+        console.log(data);
+
         const minutes = Math.floor(data.duration / 60); // 분
         const seconds = data.duration % 60; // 초
         const distanceInKm = Number((data.distance / 1000).toFixed(2)); // 미터를 킬로미터로 변환하여 소수점 2자리까지 표시
