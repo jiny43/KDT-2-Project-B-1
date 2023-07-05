@@ -5,7 +5,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import ComponentUnder from '../NaviView/Component_under';
 import ComponentUpper from '../NaviView/Component_upper';
-import RecommendedPath from './RecommendedPath';
+import RecommendedPath from '../jieunView/RecommendedPath';
 
 interface Coordinate {
   latitude: number;
@@ -46,8 +46,8 @@ const App = () => {
           const newRegion: Coordinate = {
             latitude,
             longitude,
-            latitudeDelta: 0.6,
-            longitudeDelta: 0.6,
+            latitudeDelta: 0.4,
+            longitudeDelta: 0.4,
           };
           setInitialPosition(newRegion);
 
