@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MapView, { Polyline } from 'react-native-maps';
+import MapView, { Polyline, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { View } from 'react-native';
@@ -88,11 +88,18 @@ const App = () => {
           showsUserLocation={true}
         >
           {coordinates.length > 0 && (
-            <Polyline
-              coordinates={coordinates}
-              strokeWidth={10}
-              strokeColor="red"
-            />
+            <>
+              <Polyline
+                coordinates={coordinates}
+                strokeWidth={5}
+                strokeColor="orange"
+              />
+              <Marker
+                coordinate={coordinates[coordinates.length - 1]}
+                title="도착지"
+                description="대구(팔공막창)"
+              />
+            </>
           )}
         </MapView>
       </View>
