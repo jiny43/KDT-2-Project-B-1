@@ -48,7 +48,7 @@ const GoogleMap = () => {
           }}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}>
-          <MetroMarker key={regionInfo} openModal={openModal} />
+          <MetroMarker openModal={openModal} />
         </MapView>
       </View>
       <MeongOriModal

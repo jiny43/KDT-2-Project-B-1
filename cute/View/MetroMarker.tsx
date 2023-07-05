@@ -50,7 +50,7 @@ const MetroMarker = ({
       {regionList.map(ele => {
         return (
           <Marker
-            key={Object.keys(MetroCoord[ele])[0]}
+            key={MetroRegionInfo[ele][0]}
             coordinate={MetroCoord[ele]}
             description={MetroRegionInfo[ele][1]}
             onPress={() => openModal(MetroRegionInfo[ele][0])}>
