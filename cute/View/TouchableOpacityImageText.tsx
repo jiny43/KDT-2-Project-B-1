@@ -73,7 +73,7 @@ const ModalSelectThree = (props: {region: MetroCityList}) => {
         if (props.region === ele) {
           return regionImgSourceRequire[ele].map(element => {
             return (
-              <TouchableOpacity key={element[0]}>
+              <TouchableOpacity key={element[0]} style={{height: 100}}>
                 <Image source={element[2]} style={ModalStyle.imgStyle} />
                 <Text style={ModalStyle.textStyle}>{element[1]}</Text>
               </TouchableOpacity>
@@ -86,15 +86,6 @@ const ModalSelectThree = (props: {region: MetroCityList}) => {
 };
 
 const ModalStyle = StyleSheet.create({
-  width70: {
-    width: '70%',
-  },
-  height100: {
-    height: '100%',
-  },
-  backgroundColor: {
-    backgroundColor: '#fafafa',
-  },
   imgStyle: {
     width: 90,
     height: 70,

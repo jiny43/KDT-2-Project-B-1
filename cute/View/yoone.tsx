@@ -6,7 +6,6 @@ import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import ComponentUnder from '../NaviView/Component_under';
 import ComponentUpper from '../NaviView/Component_upper';
 
-
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -98,7 +97,6 @@ const App = () => {
           />
         </MapView>
       )}
-
     </View>
   );
 };
