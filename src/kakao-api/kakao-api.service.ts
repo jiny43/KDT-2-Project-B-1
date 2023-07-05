@@ -7,7 +7,7 @@ export class KakaoApiService {
   private destination = '127.3234,36.3521'; // 목적지
 
   async getDirections(origin: string) {
-    const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${this.destination}`;
+    const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${this.origin}&destination=${this.destination}`;
     const headers = {
       Authorization: `KakaoAK ${this.kakao_api_key}`,
       'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export class KakaoApiService {
           }
         }
       }
-
+      console.log('지은');
       // console.log(duration, distance, polyline);
       return { duration, distance, polyline }; // 객체로 값을 반환
     } catch (error) {
