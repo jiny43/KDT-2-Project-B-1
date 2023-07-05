@@ -47,8 +47,8 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.3,
-            longitudeDelta: 0.3,
+            latitudeDelta: 0.5,
+            longitudeDelta: 0.5,
           });
 
           // 경로 정보 가져오기
@@ -92,10 +92,16 @@ const App = () => {
               <Polyline
                 coordinates={coordinates}
                 strokeWidth={5}
-                strokeColor="orange"
+                strokeColor="#4A72D6"
+                // strokeColor="orange"
               />
               <Marker
-                coordinate={coordinates[coordinates.length - 1]}
+                coordinate={coordinates[0]} // 출발지 좌표
+                title="출발지"
+                description="대전"
+              />
+              <Marker
+                coordinate={coordinates[coordinates.length - 1]} //도착지 좌표
                 title="도착지"
                 description="대구(팔공막창)"
               />
