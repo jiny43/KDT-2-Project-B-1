@@ -57,20 +57,24 @@ const App: React.FC<any> = ({navigation}) => {
           });
 
           // 경로 정보 가져오기
-          fetch('http://10.0.2.2:3000/kakao-api/duration')
-            .then(response => response.json())
-            .then(data => {
-              const {polyline} = data;
-              const parsedCoordinates = polyline.map((point: number[]) => ({
-                latitude: point[1],
-                longitude: point[0],
-              }));
-              setCoordinates(parsedCoordinates);
-              console.log('경로 데이터 가져옴:', data);
-            })
-            .catch(error => {
-              console.log('경로 데이터를 가져오는 중 오류 발생:', error);
-            });
+          fetch('http://10.0.2.2:3000/kakao-api/directions/:origin')
+          .then(response => response.json())
+          .then(data => {
+            // console.log(data);
+            //data 중에서 polyline만 추출함.
+            const { polyline }  = data;
+            const parsedCoordinates = polyline.map((point) => ({
+              latitude: point[1],
+              longitude: point[0],
+            }));
+            console.log(polyline);
+            setCoordinates(parsedCoordinates);
+            console.log('경로 데이터 가져옴:', data);
+          })
+          .catch(error => {
+            console.log('경로 데이터를 가져오는 중 오류 발생:', error);
+          });
+        
         },
         error => {
           console.log(error.code, error.message);
