@@ -39,7 +39,7 @@ const ModalStyle = StyleSheet.create({
     padding: 10,
     zIndex: 1,
     position: 'absolute',
-    right: '30%',
+    right: '25%',
     bottom: 0,
   },
 });
