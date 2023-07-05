@@ -5,7 +5,7 @@ import axios from 'axios';
 export class KakaoApiService {
   private kakao_api_key = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
   private origin = '127.3937,36.3399'; // 출발지
-  private destination = '127.4332,36.3521'; // 목적지
+  private destination = '128.601445,35.8714354'; // 목적지
 
   async getDuration(): Promise<any> {
     const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${this.origin}&destination=${this.destination}`;
