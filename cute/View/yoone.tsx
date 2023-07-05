@@ -5,7 +5,6 @@ import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import ComponentUnder from '../NaviView/Component_under';
 import ComponentUpper from '../NaviView/Component_upper';
-import RecommendedPath from '../jieunView/RecommendedPath';
 
 interface Coordinate {
   latitude: number;
@@ -128,7 +127,6 @@ const App = () => {
           />
         </MapView>
       )}
-      <RecommendedPath />
     </View>
   );
 };
