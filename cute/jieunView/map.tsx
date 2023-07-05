@@ -52,14 +52,17 @@ const App = () => {
           });
 
           // 경로 정보 가져오기
-          fetch('http://10.0.2.2:3000/kakao-api/duration')
+          fetch('http://10.0.2.2:3000/kakao-api/directions/:origin')
           .then(response => response.json())
           .then(data => {
-            const { polyline } = data;
-            const parsedCoordinates = polyline.map((point: number[]) => ({
+            // console.log(data);
+            //data 중에서 polyline만 추출함.
+            const { polyline }  = data;
+            const parsedCoordinates = polyline.map((point) => ({
               latitude: point[1],
               longitude: point[0],
             }));
+            console.log(polyline);
             setCoordinates(parsedCoordinates);
             console.log('경로 데이터 가져옴:', data);
           })
