@@ -17,9 +17,9 @@ export type regionImgType = {
 const ModalSelectThree = (props: {region: MetroCityList}) => {
   const regionImgSourceRequire: regionImgType = {
     busan: [
-      ['DongnaePajeon', '동래파전', require('../Img/MeongOri.png')],
+      ['DongnaePajeon', '동래파전', require('../Img/Busan_DongnaePajeon.png')],
       ['DwaejiGukbap', '돼지국밥', require('../Img/Busan_Dwaeji-gukbap.png')],
-      ['Milmyeon', '밀면', require('../Img/MeongOri.png')],
+      ['Milmyeon', '밀면', require('../Img/Busan_Milmyeon.png')],
     ],
     daejeon: [
       ['duruchigi', '두부 두루치기', require('../Img/Daejeon_Duruchigi.png')],
@@ -27,29 +27,33 @@ const ModalSelectThree = (props: {region: MetroCityList}) => {
       ['kalguksu', '칼국수', require('../Img/Daejeon_Kalguksu.png')],
     ],
     daegu: [
-      ['NapjakMandu', '납작만두', require('../Img/MeongOri.png')],
+      ['NapjakMandu', '납작만두', require('../Img/Daegu_NapjakMandu.png')],
       ['Makchang', '막창', require('../Img/Daegu_Makchang.png')],
-      ['Mungtigi', '뭉티기', require('../Img/MeongOri.png')],
+      ['Mungtigi', '뭉티기', require('../Img/Daegu_Mungtigi.png')],
     ],
     gangwondo: [
-      ['Mulhoe', '물회', require('../Img/MeongOri.png')],
+      ['Mulhoe', '물회', require('../Img/Gangwon_Mulhoe.png')],
       ['Dakgangjeong', '닭강정', require('../Img/Gangwondo_Dakgangjeong.png')],
-      ['Makguksu', '막국수', require('../Img/MeongOri.png')],
+      ['Makguksu', '막국수', require('../Img/Gangwon_Makguksu.png')],
     ],
     gwangju: [
-      ['Hanjeongsik', '한정식', require('../Img/MeongOri.png')],
+      ['Hanjeongsik', '한정식', require('../Img/Gwangju_Hanjeongsik.png')],
       ['Oritang', '오리탕', require('../Img/Gwangju_Ori-tang.png')],
-      ['Tteokgalbi', '떡갈비', require('../Img/MeongOri.png')],
+      ['Tteokgalbi', '떡갈비', require('../Img/Gwangju_Tteokgalbi.png')],
     ],
     incheon: [
-      ['SagogNaengmyeon', '사곶냉면', require('../Img/MeongOri.png')],
+      [
+        'SagogNaengmyeon',
+        '사곶냉면',
+        require('../Img/Incheon_SagogNaengmyeon.png'),
+      ],
       ['Hongeo', '홍어', require('../Img/Incheon_Hongeo.png')],
-      ['Jjolmyeon', '쫄면', require('../Img/MeongOri.png')],
+      ['Jjolmyeon', '쫄면', require('../Img/Incheon_Jjolmyeon.png')],
     ],
     ulsan: [
-      ['Bulgogi', '불고기', require('../Img/MeongOri.png')],
+      ['Bulgogi', '불고기', require('../Img/Ulsan_Bulgogi.png')],
       ['GoraeGogi', '고래고기', require('../Img/Ulsan_Gorae-gogi.png')],
-      ['Ssambap', '쌈밥', require('../Img/MeongOri.png')],
+      ['Ssambap', '쌈밥', require('../Img/Ulsan_Ssambap.png')],
     ],
   };
 
