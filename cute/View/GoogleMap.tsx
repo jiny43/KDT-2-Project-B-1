@@ -26,22 +26,6 @@ const GoogleMap = () => {
   const onMapReady = () => {
     setIsMapReady(true);
   };
-const GoogleMap = () => {
-  const [windowBool, setWindowBool] = useState<boolean>(false);
-  const [isMapReady, setIsMapReady] = useState<boolean>(false);
-  const latLngDeltaData: latLngDeltaDataType = {
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.5,
-  };
-  const openModal = () => {
-    setWindowBool(true);
-  };
-  const closeModal = () => {
-    setWindowBool(false);
-  };
-  const onMapReady = () => {
-    setIsMapReady(true);
-  };
 
   const renderLoading = () => {
     return (
@@ -75,4 +59,5 @@ const GoogleMap = () => {
     </>
   );
 };
+
 export default GoogleMap;
