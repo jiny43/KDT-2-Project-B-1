@@ -6,10 +6,12 @@ function MeongOriModal({
   closeModal,
   windowBool,
   regionInfo,
+  navigation,
 }: {
   closeModal: () => void;
   windowBool: boolean;
   regionInfo: string;
+  navigation: any;
 }) {
   return (
     <Modal
@@ -24,7 +26,11 @@ function MeongOriModal({
           style={MeongOriStyle.ImageStyle}
         />
       </View>
-      <OpenModalToClickMarker closeModal={closeModal} regionInfo={regionInfo} />
+      <OpenModalToClickMarker
+        closeModal={closeModal}
+        regionInfo={regionInfo}
+        navigation={navigation}
+      />
     </Modal>
   );
 }

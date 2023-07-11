@@ -8,7 +8,9 @@ import React, {useState} from 'react';
 import MeongOriModal from './MeongOriModal';
 import MetroMarker from './MetroMarker';
 
-const GoogleMap = () => {
+// 네비게이션 사용을 위해 매개변수에 네비게이션을 넣어주세요.
+// App.tsx 에 작성하신 페이지부터 네비게이션 기능 사용을 할 최종 목적지까지 navigation을 전달해줘야 사용 가능합니다.
+const GoogleMap: React.FC<any> = ({navigation}) => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
   const [isMapReady, setIsMapReady] = useState<boolean>(false);
   const [regionInfo, setRegionInfo] = useState<string>('');
@@ -55,6 +57,7 @@ const GoogleMap = () => {
         closeModal={closeModal}
         windowBool={windowBool}
         regionInfo={regionInfo}
+        navigation={navigation}
       />
     </>
   );
