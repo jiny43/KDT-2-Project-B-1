@@ -4,7 +4,8 @@ import {View, Text, StyleSheet} from 'react-native';
 export const ComponentUpper: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Upper Component</Text>
+      <Text>상단 컴포넌트</Text>
+      <Text>카카오 API를 사용하여 불러올 데이터 공간</Text>
     </View>
   );
 };
