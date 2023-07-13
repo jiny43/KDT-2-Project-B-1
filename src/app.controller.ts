@@ -25,4 +25,9 @@ export class AppController {
     await this.appService.getHello();
     return 'Data fetched and saved!';
   }
+
+  @Get('hello')
+  findAll(): string {
+    return 'hello~~!!';
+  }
 }
