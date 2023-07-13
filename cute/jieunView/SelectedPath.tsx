@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   selectedPath: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "black",
+    color: "#4A72D6",
     textAlign: "center",
     
   },

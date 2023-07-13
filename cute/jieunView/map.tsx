@@ -22,6 +22,7 @@ interface Point {
 const App = () => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(null);
   const [coordinates, setCoordinates] = useState<Point[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const checkLocationPermission = async () => {
@@ -47,29 +48,25 @@ const App = () => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.5,
-            longitudeDelta: 0.5,
+            latitudeDelta: 2,
+            longitudeDelta: 2,
           });
 
           // 경로 정보 가져오기
           fetch('http://10.0.2.2:3000/kakao-api/directions/:origin')
           .then(response => response.json())
           .then(data => {
-            // console.log(data);
-            //data 중에서 polyline만 추출함.
-            const { polyline }  = data;
-            const parsedCoordinates = polyline.map((point) => ({
+            const { polyline } = data;
+            const parsedCoordinates = polyline.map((point: number[]) => ({
               latitude: point[1],
               longitude: point[0],
             }));
-            console.log(polyline);
             setCoordinates(parsedCoordinates);
             console.log('경로 데이터 가져옴:', data);
           })
           .catch(error => {
             console.log('경로 데이터를 가져오는 중 오류 발생:', error);
           });
-        
         },
         error => {
           console.log(error.code, error.message);
@@ -80,6 +77,16 @@ const App = () => {
 
     checkLocationPermission();
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentIndex < coordinates.length - 1) {
+        setCurrentIndex(prevIndex => prevIndex + 1);
+      }
+    }, 5); // 0.1초마다 폴리라인 좌표를 추가
+
+    return () => clearInterval(interval);
+  }, [coordinates]);
 
   return (
     initialPosition && (
@@ -93,10 +100,9 @@ const App = () => {
           {coordinates.length > 0 && (
             <>
               <Polyline
-                coordinates={coordinates}
+                coordinates={coordinates.slice(0, currentIndex + 1)}
                 strokeWidth={5}
                 strokeColor="#4A72D6"
-                // strokeColor="orange"
               />
               <Marker
                 coordinate={coordinates[0]} // 출발지 좌표
