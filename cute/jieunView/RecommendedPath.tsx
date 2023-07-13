@@ -30,7 +30,7 @@ const RecommendedPath: React.FC<any> = ({navigation}) => {
           navigation.navigate('yoone');
         }}>
         <Text style={styles.title}>내비 추천</Text>
-        <Text style={styles.distanceText}>예상 운전 거리:</Text>
+        <Text style={styles.distanceText}>예상 운전 시간:</Text>
         <Text
           style={
             styles.duration

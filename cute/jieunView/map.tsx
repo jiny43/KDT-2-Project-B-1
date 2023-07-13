@@ -5,6 +5,8 @@ import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import {View} from 'react-native';
 import SelectedPath from './SelectedPath';
 import RecommendedPath from './RecommendedPath';
+import Button from './Button';
+import axios from 'axios';
 
 // 좌표 타입
 interface Coordinate {
@@ -123,6 +125,7 @@ const App: React.FC<any> = ({navigation}) => {
         </MapView>
         {/* 네비게이션 사용할 RecommendedPath에 네비게이션 인자 전달 */}
         <RecommendedPath navigation={navigation} />
+        <Button name ="주차장 우선"></Button>
       </View>
     )
   );

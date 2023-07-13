@@ -32,7 +32,7 @@ export class KakaoApiService {
           }
         }
       }
-      console.log('지은');
+      // console.log('지은');
       // console.log(duration, distance, polyline);
       return { duration, distance, polyline }; // 객체로 값을 반환
     } catch (error) {
