@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {LatLngTypes} from '../model/mapviewInitialRegionData';
 import fetchPlaces from '../model/searchData';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 
 export interface FetchPlacesType {
   business_status: string;
@@ -81,7 +81,14 @@ const RecommendList = ({
   return (
     <View>
       {fetchData.map((val: any) => {
-        return <Text>{val.name}</Text>;
+        return (
+          <View>
+            <Image source={val.photos} />
+            <Text>{val.name}</Text>
+            <Text>영업상태 : {val.business_status}</Text>
+            <Text></Text>
+          </View>
+        );
       })}
       {/* <Text>{fetchData}</Text> */}
       {/* <Text>{fetchData[1].business_status}</Text>
