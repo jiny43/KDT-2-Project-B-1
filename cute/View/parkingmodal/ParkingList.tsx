@@ -180,6 +180,7 @@ export const ParkingList = () => {
               alignContent: 'center',
               justifyContent: 'center',
               flex: 1,
+              zIndex: 10,
             }}>
             {/* places를 데이터로 리스트업 작성 */}
             <FlatList

@@ -7,6 +7,7 @@ import {View, StyleSheet, Image, ImageRequireSource} from 'react-native';
 import MapView, {Polyline, Marker} from 'react-native-maps';
 import ComponentUnder from '../NaviView/Component_under';
 import ComponentUpper from '../NaviView/Component_upper';
+import {ParkingModal} from './parkingmodal/ParkingModal';
 
 // 타입을 지정, 위도 경도와 델타값의 타입을 number로 지정
 interface Coordinate {
@@ -128,6 +129,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <ParkingModal />
       <ComponentUpper />
       {initialPosition && (
         <MapView
