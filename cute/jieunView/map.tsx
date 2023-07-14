@@ -5,6 +5,7 @@ import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { View } from 'react-native';
 import SelectedPath from './SelectedPath';
 import RecommendedPath from './RecommendedPath';
+import Button from './Button';
 import axios from 'axios';
 
 
@@ -122,8 +123,8 @@ console.log(coordinates);
               latitude: coord.longitude,
               longitude: coord.latitude,
             }))}
-            strokeWidth={10}
-            strokeColor="red"
+            strokeWidth={5}
+            strokeColor="#4A72D6"
             />
           )}
           <Marker
@@ -136,6 +137,7 @@ console.log(coordinates);
           />
         </MapView>
         <RecommendedPath navigation={navigation} />
+        {/* <Button name='주차장 우선'></Button> */}
       </View>
     ) : null
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
 type ButtonName = {
   name: string;
@@ -7,7 +7,7 @@ type ButtonName = {
 
 const Button = ({ name }: ButtonName) => {
   return (
-    <Text style={styles.selectedname}>{name}</Text>
+    <TouchableOpacity style={styles.selectedname}>{name}</TouchableOpacity >
   );
 }
 
