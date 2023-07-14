@@ -65,6 +65,7 @@ const App: React.FC<any> = ({navigation}) => {
     const fetchData = async () => {
       try {
         const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
+        //?임의의 출발지와 도착지
         const origin = '127.3234,36.3521';
         const destination = '126.705278,37.456111'; 
 
@@ -105,8 +106,8 @@ const App: React.FC<any> = ({navigation}) => {
 
     fetchData();
   }, []);
-  console.log(coordinates);
-  //coordinates확인완료
+// console.log(coordinates);
+//coordinates확인완료
 
 //? 도착지정보 받기전에 테스트 '126.705278,37.456111'
 const destinationLatitude = 37.456111; // 도착지 위도 값 설정
@@ -154,7 +155,7 @@ const destinationLongitude = 126.705278; // 도착지 경도 값 설정
         />
         </MapView>
         <RecommendedPath navigation={navigation} />
-        {/* <Button name='주차장 우선'></Button> */}
+        <Button name='주차장우선'/>
       </View>
     ) : null
   );

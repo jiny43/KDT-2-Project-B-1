@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 170,
     left: 15,
-    fontSize: 18,
+    fontSize: 19,
   },
 });
 

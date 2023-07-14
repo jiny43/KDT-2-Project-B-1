@@ -1,8 +1,10 @@
-import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import React from "react";
+import { Text, StyleSheet,View } from "react-native";
 
-//googlemap 에 prop 으로 전달해주기 !
+
+//map 에 prop 으로 전달해주기 !
 type SelectedPathProps = {
+  path: string; 
   path: string; //문자열 타입
 };
 
@@ -15,9 +17,10 @@ const styles = StyleSheet.create({
   //텍스트 스타일
   selectedPath: {
     fontSize: 30,
-    fontWeight: 'bold',
-    color: '#4A72D6',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "black",
+    textAlign: "center",
+    
   },
 });
 export default SelectedPath;
