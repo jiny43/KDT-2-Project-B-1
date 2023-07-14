@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {LatLngTypes} from '../model/mapviewInitialRegionData';
 import fetchPlaces from '../model/searchData';
 import {Image, Text, View} from 'react-native';
-import hrefRegex, {PhotosType} from '../model/hrefRegex';
+import ImgReference, {PhotosType} from '../model/ImgReference';
 
 export interface FetchPlacesType {
   business_status: string;
@@ -61,17 +61,29 @@ const RecommendList = ({
   }, []);
 
   console.log('fetchData', fetchData[0].photos);
+  const hrefList = fetchData.map((val: any) => {
+    const photos = val.photos[0];
+    return ImgReference(photos.photo_reference, API_KEY);
+  });
+  console.log('hrefList', hrefList);
 
   return (
     <View>
-      {fetchData.map((val: any) => {
+      {fetchData.map((val: any, index: number) => {
         return (
           <View>
-            <Image source={val.photos} />
+            <Image
+              source={{
+                uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=Aaw_FcKQViOF1_586NU9llPzJ0we7PPDU6z8_1AJkDXMxTmcNx-CLu_RDyyK8SIK64hiUGTlFmQ30KMUCwsRPLPVczCo5lD7mO4H4O4T0mdHPOpdG-b7TchWpPRnGlByevWzZR5UJSVRsVplpuJAp_RiBO77dJo7L_B63QG9Iy4rDUvbtACv&key=AIzaSyBxMsKTMvDP6CxDuDjIz9PIln46JK87kro',
+              }}
+              style={{width: 100, height: 100}}
+            />
             <Text>{val.name}</Text>
-            <Text>영업상태 : {val.business_status}</Text>
+            <Text>
+              영업상태 :{' '}
+              {val.business_status === 'OPERATIONAL' ? '영업 중' : '준비 중'}
+            </Text>
             <Text>추천 : {val.rating}</Text>
-            {/* <Image src={} */}
           </View>
         );
       })}
