@@ -66,6 +66,7 @@ const App: React.FC<any> = ({navigation}) => {
       try {
         const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
         //?임의의 출발지와 도착지
+        //todo 선택한 값으로 변경해야함
         const origin = '127.3234,36.3521';
         const destination = '126.705278,37.456111'; 
 
@@ -109,15 +110,18 @@ const App: React.FC<any> = ({navigation}) => {
 // console.log(coordinates);
 //coordinates확인완료
 
-//? 도착지정보 받기전에 테스트 '126.705278,37.456111'
+//todo 선택한 값으로 변경해야함
+//? 도착지정보 받기전에 테스트 '126.705278,37.456111'/'127.3234,36.3521'
 const destinationLatitude = 37.456111; // 도착지 위도 값 설정
 const destinationLongitude = 126.705278; // 도착지 경도 값 설정
+const originLatitude = 36.3521;
+const originLongitude = 127.3234;
 
 
   return (
     initialPosition ? (
       <View style={{ flex: 1 }}>
-        <SelectedPath path="대전 -> 대구(팔공막창)" />
+        <SelectedPath path="대전 -> 도착지주세요" />
         <MapView
           style={{ flex: 1 }}
           initialRegion={initialPosition}
@@ -137,8 +141,8 @@ const destinationLongitude = 126.705278; // 도착지 경도 값 설정
           {/* 출발지 마커 */}
           <Marker
             coordinate={{
-              latitude: initialPosition.latitude,
-              longitude: initialPosition.longitude,
+              latitude: originLatitude,
+              longitude: originLongitude,
             }}
             title="출발지"
             description="현재 위치"
