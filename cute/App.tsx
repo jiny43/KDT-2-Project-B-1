@@ -36,12 +36,6 @@ function App() {
           component={Yoone}
           options={{headerShown: false}}
         />
-        {/* 남한페이지 */}
-        <Stack.Screen
-          name="recommendList"
-          component={RecommendList}
-          options={{headerShown: false}}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );
