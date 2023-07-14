@@ -5,6 +5,7 @@ import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { View } from 'react-native';
 import SelectedPath from './SelectedPath';
 import RecommendedPath from './RecommendedPath';
+import axios from 'axios';
 
 interface Coordinate {
   latitude: number;
@@ -13,8 +14,20 @@ interface Coordinate {
   longitudeDelta: number;
 }
 
+interface Section {
+  end_location: {
+    lat: number;
+    lng: number;
+  };
+  start_location: {
+    lat: number;
+    lng: number;
+  };
+}
+
 const App: React.FC<any> = ({ navigation }) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(null);
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
   useEffect(() => {
     const checkLocationPermission = async () => {
@@ -54,6 +67,46 @@ const App: React.FC<any> = ({ navigation }) => {
     checkLocationPermission();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
+        const destination = '127.3234,36.3521'; // 목적지
+        const origin = '126.705278,37.456111'; // 출발지
+
+        const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
+        const headers = {
+          Authorization: `KakaoAK ${kakaoApiKey}`,
+          'Content-Type': 'application/json',
+        };
+
+        const response = await axios.get(url, { headers });
+        const data = response.data;
+        const polyline = [];
+        const sections = data.routes[0].sections;
+        for (const section of sections) {
+          const roads = section.roads;
+          for (const road of roads) {
+            const vertexes = road.vertexes;
+            for (let i = 0; i < vertexes.length - 1; i += 2) {
+              const x = vertexes[i];
+              const y = vertexes[i + 1];
+              polyline.push({
+                latitude: x,
+                longitude: y,
+              });
+            }
+          }
+        }
+        setCoordinates(polyline);
+      } catch (error) {
+        console.error(`Error: ${error}`);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     initialPosition && (
       <View style={{ flex: 1 }}>
@@ -63,6 +116,13 @@ const App: React.FC<any> = ({ navigation }) => {
           initialRegion={initialPosition}
           showsUserLocation={true}
         >
+          {coordinates.length > 0 && (
+            <Polyline
+              coordinates={coordinates}
+              strokeWidth={5}
+              strokeColor="#4A72D6"
+            />
+          )}
           <Marker
             coordinate={{
               latitude: initialPosition.latitude,
@@ -72,7 +132,6 @@ const App: React.FC<any> = ({ navigation }) => {
             description="대전"
           />
         </MapView>
-        {/* 네비게이션 사용할 RecommendedPath에 네비게이션 인자 전달 */}
         <RecommendedPath navigation={navigation} />
       </View>
     )

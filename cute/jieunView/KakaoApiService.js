@@ -16,7 +16,7 @@ class KakaoApiService {
       const response = await axios.get(url, { headers });
       const data = response.data;
       // console.log(data);
-      const sections = data.routes[0].sections[0]; 
+      const sections = data.routes[0].sections[0].roads[0].vertexes; 
       console.log(sections);
       // const summary = data.routes[0].summary;
       // console.log(summary);
