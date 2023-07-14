@@ -81,10 +81,6 @@ const ModalSelectThree = ({
     setSelectFood(valueFirst);
     setSelectRegion(valueSecond);
   };
-  const recommendEle = (valueFirst: string, valueSecond: MetroCityList) => {
-    setSelectFood(valueFirst);
-    setSelectRegion(valueSecond);
-  };
 
   return (
     <View style={{height: '100%'}}>
