@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 
-const RecommendedPath: React.FC<any> = ({ navigation }) => {
-  const [pathData, setPathData] = useState({ hours: 0, minutes: 0, distance: 0 });
+const RecommendedPath: React.FC<any> = ({navigation}) => {
+  const [pathData, setPathData] = useState({hours: 0, minutes: 0, distance: 0});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +18,7 @@ const RecommendedPath: React.FC<any> = ({ navigation }) => {
           'Content-Type': 'application/json',
         };
 
-        const response = await axios.get(url, { headers });
+        const response = await axios.get(url, {headers});
         const data = response.data;
         const sections = data.routes[0].sections;
         const summary = data.routes[0].summary;
@@ -26,7 +26,7 @@ const RecommendedPath: React.FC<any> = ({ navigation }) => {
         const hours = Math.floor(summary.duration / 3600); // 시간
         const minutes = Math.floor((summary.duration % 3600) / 60); // 분
         const distanceInKm = Number((summary.distance / 1000).toFixed(2)); // 미터를 킬로미터로 변환하여 소수점 2자리까지 표시
-        setPathData({ hours, minutes, distance: distanceInKm });
+        setPathData({hours, minutes, distance: distanceInKm});
       } catch (error) {
         console.error(`Error: ${error}`);
       }
@@ -38,18 +38,22 @@ const RecommendedPath: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         onPress={() => {
           navigation.navigate('yoone');
-        }}
-      >
+        }}>
         <Text style={styles.title}>내비 추천</Text>
         <Text style={styles.distanceText}>예상 운전 시간:</Text>
-        <Text style={styles.duration}>{`${pathData.hours}시 ${pathData.minutes}분`}</Text>
+        <Text
+          style={
+            styles.duration
+          }>{`${pathData.hours}시 ${pathData.minutes}분`}</Text>
 
         <View style={styles.contentContainer}>
           <Text style={styles.distanceText}>예상 운전 거리:</Text>
-          {pathData && <Text style={styles.distance}>{`${pathData.distance} km`}</Text>}
+          {pathData && (
+            <Text style={styles.distance}>{`${pathData.distance} km`}</Text>
+          )}
           <Image source={require('../Img/ori_nav.png')} style={styles.image} />
         </View>
       </TouchableOpacity>

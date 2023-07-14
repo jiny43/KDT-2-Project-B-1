@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import MapView, { Polyline, Marker } from 'react-native-maps';
+import React, {useState, useEffect} from 'react';
+import MapView, {Polyline, Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
-import { View } from 'react-native';
+import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import {View} from 'react-native';
 import SelectedPath from './SelectedPath';
 import RecommendedPath from './RecommendedPath';
 import Button from './Button';
 import axios from 'axios';
-
 
 interface Coordinate {
   latitude: number;
@@ -16,11 +15,13 @@ interface Coordinate {
   longitudeDelta: number;
 }
 
-const App: React.FC<any> = ({ navigation }) => {
-  const [initialPosition, setInitialPosition] = useState<Coordinate | null>(null);
+const App: React.FC<any> = ({navigation}) => {
+  const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
+    null,
+  );
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
-//현재 위치 권한 설정
+  //현재 위치 권한 설정
   useEffect(() => {
     const checkLocationPermission = async () => {
       const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
@@ -38,9 +39,9 @@ const App: React.FC<any> = ({ navigation }) => {
     const getLocation = async () => {
       Geolocation.getCurrentPosition(
         position => {
-          const { latitude, longitude } = position.coords;
+          const {latitude, longitude} = position.coords;
 
-          console.log(position.coords); 
+          console.log(position.coords);
           // 위치 정보 확인 완료
           setInitialPosition({
             latitude,
@@ -52,15 +53,14 @@ const App: React.FC<any> = ({ navigation }) => {
         error => {
           console.log(error.code, error.message);
         },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     };
 
     checkLocationPermission();
   }, []);
 
-
-//데이터 받아오기
+  //데이터 받아오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -74,9 +74,8 @@ const App: React.FC<any> = ({ navigation }) => {
           'Content-Type': 'application/json',
         };
 
-
- //목적지까지 가는  x,y 좌표의 배열
-        const response = await axios.get(url, { headers });
+        //목적지까지 가는  x,y 좌표의 배열
+        const response = await axios.get(url, {headers});
         const data = response.data;
         const polyline = [];
         const sections = data.routes[0].sections;
@@ -90,6 +89,8 @@ const App: React.FC<any> = ({ navigation }) => {
               polyline.push({
                 latitude,
                 longitude,
+                latitudeDelta: 0.5,
+                longitudeDelta: 0.5,
               });
             }
             // console.log(polyline);
@@ -104,43 +105,40 @@ const App: React.FC<any> = ({ navigation }) => {
 
     fetchData();
   }, []);
-console.log(coordinates);
-//coordinates확인완료
+  console.log(coordinates);
+  //coordinates확인완료
 
-  return (
-    initialPosition ? (
-      <View style={{ flex: 1 }}>
-        <SelectedPath path="대전 -> 대구(팔공막창)" />
-        <MapView
-          style={{ flex: 1 }}
-          initialRegion={initialPosition}
-          showsUserLocation={true}
-        >
-          {/* coordinates 의 위도 경도가 반대로돼있음 -> 위도,경도를 변경해주는 작업 */}
-          {coordinates.length > 0 && (
-            <Polyline
+  return initialPosition ? (
+    <View style={{flex: 1}}>
+      <SelectedPath path="대전 -> 대구(팔공막창)" />
+      <MapView
+        style={{flex: 1}}
+        initialRegion={initialPosition}
+        showsUserLocation={true}>
+        {/* coordinates 의 위도 경도가 반대로돼있음 -> 위도,경도를 변경해주는 작업 */}
+        {coordinates.length > 0 && (
+          <Polyline
             coordinates={coordinates.map(coord => ({
               latitude: coord.longitude,
               longitude: coord.latitude,
             }))}
             strokeWidth={5}
             strokeColor="#4A72D6"
-            />
-          )}
-          <Marker
-            coordinate={{
-              latitude: initialPosition.latitude,
-              longitude: initialPosition.longitude,
-            }}
-            title="출발지"
-            description="대전"
           />
-        </MapView>
-        <RecommendedPath navigation={navigation} />
-        {/* <Button name='주차장 우선'></Button> */}
-      </View>
-    ) : null
-  );
+        )}
+        <Marker
+          coordinate={{
+            latitude: initialPosition.latitude,
+            longitude: initialPosition.longitude,
+          }}
+          title="출발지"
+          description="대전"
+        />
+      </MapView>
+      <RecommendedPath navigation={navigation} />
+      {/* <Button name='주차장 우선'></Button> */}
+    </View>
+  ) : null;
 };
 
 export default App;
