@@ -51,6 +51,7 @@ const RecommendList = ({
       types: '',
     },
   ]);
+  const [coordNameData, setCoordNameData] = React.useState<coordNameType>({});
 
   const API_KEY = 'AIzaSyBxMsKTMvDP6CxDuDjIz9PIln46JK87kro';
   console.log('추천지역', region, '지역 좌표', coord[region]);
