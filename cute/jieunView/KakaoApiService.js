@@ -15,11 +15,11 @@ class KakaoApiService {
 
       const response = await axios.get(url, { headers });
       const data = response.data;
-      console.log(data);
-      const sections = data.routes[0].sections; 
+      // console.log(data);
+      const sections = data.routes[0].sections[0].roads[0].vertexes; 
       console.log(sections);
-      const summary = data.routes[0].summary;
-      console.log(summary);
+      // const summary = data.routes[0].summary;
+      // console.log(summary);
         //? summary(카카오 추천 경로 정보) : 출발지,목적지, 거리, 시간 , 택시 , toll 요금
       
 

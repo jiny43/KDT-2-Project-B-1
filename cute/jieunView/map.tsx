@@ -8,7 +8,6 @@ import RecommendedPath from './RecommendedPath';
 import Button from './Button';
 import axios from 'axios';
 
-// 좌표 타입
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -16,21 +15,13 @@ interface Coordinate {
   longitudeDelta: number;
 }
 
-// Polyline을 그리기 위한 좌표 타입
-interface Point {
-  latitude: number;
-  longitude: number;
-}
-
-// 네비게이션 사용을 위해 매개변수에 네비게이션을 넣어주세요.
-// App.tsx 에 작성하신 페이지부터 네비게이션 기능 사용을 할 최종 목적지까지 navigation을 전달해줘야 사용 가능합니다.
 const App: React.FC<any> = ({navigation}) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
     null,
   );
-  const [coordinates, setCoordinates] = useState<Point[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
+  //현재 위치 권한 설정
   useEffect(() => {
     const checkLocationPermission = async () => {
       const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
@@ -50,30 +41,14 @@ const App: React.FC<any> = ({navigation}) => {
         position => {
           const {latitude, longitude} = position.coords;
 
-          console.log(position.coords); // 위치 정보 출력
-
+          console.log(position.coords);
+          // 위치 정보 확인 완료
           setInitialPosition({
             latitude,
             longitude,
             latitudeDelta: 2,
             longitudeDelta: 2,
           });
-
-          // 경로 정보 가져오기
-          fetch('http://10.0.2.2:3000/kakao-api/directions/:origin')
-            .then(response => response.json())
-            .then(data => {
-              const {polyline} = data;
-              const parsedCoordinates = polyline.map((point: number[]) => ({
-                latitude: point[1],
-                longitude: point[0],
-              }));
-              setCoordinates(parsedCoordinates);
-              console.log('경로 데이터 가져옴:', data);
-            })
-            .catch(error => {
-              console.log('경로 데이터를 가져오는 중 오류 발생:', error);
-            });
         },
         error => {
           console.log(error.code, error.message);
@@ -85,50 +60,85 @@ const App: React.FC<any> = ({navigation}) => {
     checkLocationPermission();
   }, []);
 
+  //데이터 받아오기
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentIndex < coordinates.length - 1) {
-        setCurrentIndex(prevIndex => prevIndex + 1);
+    const fetchData = async () => {
+      try {
+        const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
+        const destination = '127.3234,36.3521'; // 목적지
+        const origin = '126.705278,37.456111'; // 출발지
+
+        const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
+        const headers = {
+          Authorization: `KakaoAK ${kakaoApiKey}`,
+          'Content-Type': 'application/json',
+        };
+
+        //목적지까지 가는  x,y 좌표의 배열
+        const response = await axios.get(url, {headers});
+        const data = response.data;
+        const polyline = [];
+        const sections = data.routes[0].sections;
+        for (const section of sections) {
+          const roads = section.roads;
+          for (const road of roads) {
+            const vertexes = road.vertexes;
+            for (let i = 0; i < vertexes.length - 1; i += 2) {
+              const latitude = vertexes[i];
+              const longitude = vertexes[i + 1];
+              polyline.push({
+                latitude,
+                longitude,
+                latitudeDelta: 0.5,
+                longitudeDelta: 0.5,
+              });
+            }
+            // console.log(polyline);
+            //확인 완료
+          }
+        }
+        setCoordinates(polyline);
+      } catch (error) {
+        console.error(`Error: ${error}`);
       }
-    }, 5); // 0.1초마다 폴리라인 좌표를 추가
+    };
 
-    return () => clearInterval(interval);
-  }, [coordinates]);
+    fetchData();
+  }, []);
+  console.log(coordinates);
+  //coordinates확인완료
 
-  return (
-    initialPosition && (
-      <View style={{flex: 1}}>
-        <SelectedPath path="대전 -> 대구(팔공막창)" />
-        <MapView
-          style={{flex: 1}}
-          initialRegion={initialPosition}
-          showsUserLocation={true}>
-          {coordinates.length > 0 && (
-            <>
-              <Polyline
-                coordinates={coordinates.slice(0, currentIndex + 1)}
-                strokeWidth={5}
-                strokeColor="#4A72D6"
-              />
-              <Marker
-                coordinate={coordinates[0]} // 출발지 좌표
-                title="출발지"
-                description="대전"
-              />
-              <Marker
-                coordinate={coordinates[coordinates.length - 1]} //도착지 좌표
-                title="도착지"
-                description="대구(팔공막창)"
-              />
-            </>
-          )}
-        </MapView>
-        {/* 네비게이션 사용할 RecommendedPath에 네비게이션 인자 전달 */}
-        <RecommendedPath navigation={navigation} />
-        <Button name="주차장 우선"></Button>
-      </View>
-    )
-  );
+  return initialPosition ? (
+    <View style={{flex: 1}}>
+      <SelectedPath path="대전 -> 대구(팔공막창)" />
+      <MapView
+        style={{flex: 1}}
+        initialRegion={initialPosition}
+        showsUserLocation={true}>
+        {/* coordinates 의 위도 경도가 반대로돼있음 -> 위도,경도를 변경해주는 작업 */}
+        {coordinates.length > 0 && (
+          <Polyline
+            coordinates={coordinates.map(coord => ({
+              latitude: coord.longitude,
+              longitude: coord.latitude,
+            }))}
+            strokeWidth={5}
+            strokeColor="#4A72D6"
+          />
+        )}
+        <Marker
+          coordinate={{
+            latitude: initialPosition.latitude,
+            longitude: initialPosition.longitude,
+          }}
+          title="출발지"
+          description="대전"
+        />
+      </MapView>
+      <RecommendedPath navigation={navigation} />
+      {/* <Button name='주차장 우선'></Button> */}
+    </View>
+  ) : null;
 };
 
 export default App;
