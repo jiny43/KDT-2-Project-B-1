@@ -57,7 +57,7 @@ const RecommendList = ({
 
       setFetchData(resultUndefinedFilter);
     });
-  }, []);
+  }, [keywords]);
 
   return (
     <View>

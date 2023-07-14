@@ -20,6 +20,10 @@ async function fetchPlaces(
     if (jsonResponse.status === 'OK') {
       // 해당 데이터 중 results 안에 있는 위치정보들을 places에 담기.
       // console.log('요청한 자료 데이터입니다.', jsonResponse.results);
+      // console.log(
+      //   'fetch데이터를 받아오는데 성공하였습니다.',
+      //   jsonResponse.results,
+      // );
       return jsonResponse.results;
     }
   } catch (error) {
