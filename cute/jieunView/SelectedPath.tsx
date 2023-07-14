@@ -4,7 +4,6 @@ import { Text, StyleSheet,View } from "react-native";
 
 //map 에 prop 으로 전달해주기 !
 type SelectedPathProps = {
-  path: string; 
   path: string; //문자열 타입
 };
 
