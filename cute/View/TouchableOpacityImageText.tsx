@@ -15,7 +15,13 @@ export type regionImgType = {
   [key in MetroCityList]: Array<[string, string, any]>;
 };
 
-const ModalSelectThree = (props: {region: MetroCityList}, navigation: any) => {
+const ModalSelectThree = ({
+  forRegion,
+  navigation,
+}: {
+  forRegion: MetroCityList;
+  navigation: any;
+}) => {
   const [selectFood, setSelectFood] = React.useState<string>('');
   const [selectRegion, setSelectRegion] =
     React.useState<MetroCityList>('daejeon');
@@ -80,7 +86,7 @@ const ModalSelectThree = (props: {region: MetroCityList}, navigation: any) => {
     <View style={{height: '100%'}}>
       <View style={ModalStyle.viewStyle}>
         {regionList.map(ele => {
-          if (props.region === ele) {
+          if (forRegion === ele) {
             return regionImgSourceRequire[ele].map(element => {
               return (
                 <TouchableOpacity
@@ -103,7 +109,11 @@ const ModalSelectThree = (props: {region: MetroCityList}, navigation: any) => {
           borderColor: 'red',
           borderStyle: 'solid',
         }}>
-        <RecommendList region={selectRegion} keywords={selectFood} />
+        <RecommendList
+          region={selectRegion}
+          keywords={selectFood}
+          navigation={navigation}
+        />
       </View>
     </View>
   );

@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import {LatLngTypes} from '../model/mapviewInitialRegionData';
 import fetchPlaces from '../model/searchData';
-import {Image, Text, View} from 'react-native';
+import {Button, Image, Text, View, TouchableOpacity} from 'react-native';
 import coord from '../model/MetropolitanCoordinate.json';
 import {MetroCityList} from './TouchableOpacityImageText';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export interface FetchPlacesType {
   business_status: string;
@@ -52,7 +51,6 @@ const RecommendList = ({
       types: '',
     },
   ]);
-  const [coordNameData, setCoordNameData] = React.useState<coordNameType>({});
 
   const API_KEY = 'AIzaSyBxMsKTMvDP6CxDuDjIz9PIln46JK87kro';
   console.log('추천지역', region, '지역 좌표', coord[region]);
@@ -77,10 +75,10 @@ const RecommendList = ({
   console.log('fetchData', fetchData);
 
   const regionData = (name: string, location: LatLngTypes) => {
-    setCoordNameData({
+    return {
       name: name,
       location: location,
-    });
+    };
   };
 
   return (
@@ -88,7 +86,12 @@ const RecommendList = ({
       {fetchData.map(val => {
         return (
           <TouchableOpacity
-            onPress={() => regionData(val.name, val.geometry.location)}>
+            onPress={() => {
+              navigation.navigate(
+                'map',
+                regionData(val.name, val.geometry.location),
+              );
+            }}>
             <View style={{margin: 4}}>
               <Text>{val.name}</Text>
               <Text>
