@@ -7,6 +7,7 @@ import SelectedPath from './SelectedPath';
 import RecommendedPath from './RecommendedPath';
 import axios from 'axios';
 
+
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -14,21 +15,11 @@ interface Coordinate {
   longitudeDelta: number;
 }
 
-interface Section {
-  end_location: {
-    lat: number;
-    lng: number;
-  };
-  start_location: {
-    lat: number;
-    lng: number;
-  };
-}
-
 const App: React.FC<any> = ({ navigation }) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(null);
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
+//현재 위치 권한 설정
   useEffect(() => {
     const checkLocationPermission = async () => {
       const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
@@ -48,8 +39,8 @@ const App: React.FC<any> = ({ navigation }) => {
         position => {
           const { latitude, longitude } = position.coords;
 
-          console.log(position.coords); // 위치 정보 출력
-
+          console.log(position.coords); 
+          // 위치 정보 확인 완료
           setInitialPosition({
             latitude,
             longitude,
@@ -67,6 +58,8 @@ const App: React.FC<any> = ({ navigation }) => {
     checkLocationPermission();
   }, []);
 
+
+//데이터 받아오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,6 +73,8 @@ const App: React.FC<any> = ({ navigation }) => {
           'Content-Type': 'application/json',
         };
 
+
+ //목적지까지 가는  x,y 좌표의 배열
         const response = await axios.get(url, { headers });
         const data = response.data;
         const polyline = [];
@@ -89,13 +84,15 @@ const App: React.FC<any> = ({ navigation }) => {
           for (const road of roads) {
             const vertexes = road.vertexes;
             for (let i = 0; i < vertexes.length - 1; i += 2) {
-              const x = vertexes[i];
-              const y = vertexes[i + 1];
+              const latitude = vertexes[i];
+              const longitude = vertexes[i + 1];
               polyline.push({
-                latitude: x,
-                longitude: y,
+                latitude,
+                longitude,
               });
             }
+            // console.log(polyline);
+            //확인 완료
           }
         }
         setCoordinates(polyline);
@@ -106,9 +103,11 @@ const App: React.FC<any> = ({ navigation }) => {
 
     fetchData();
   }, []);
+console.log(coordinates);
+//coordinates확인완료
 
   return (
-    initialPosition && (
+    initialPosition ? (
       <View style={{ flex: 1 }}>
         <SelectedPath path="대전 -> 대구(팔공막창)" />
         <MapView
@@ -116,11 +115,15 @@ const App: React.FC<any> = ({ navigation }) => {
           initialRegion={initialPosition}
           showsUserLocation={true}
         >
+          {/* coordinates 의 위도 경도가 반대로돼있음 -> 위도,경도를 변경해주는 작업 */}
           {coordinates.length > 0 && (
             <Polyline
-              coordinates={coordinates}
-              strokeWidth={5}
-              strokeColor="#4A72D6"
+            coordinates={coordinates.map(coord => ({
+              latitude: coord.longitude,
+              longitude: coord.latitude,
+            }))}
+            strokeWidth={10}
+            strokeColor="red"
             />
           )}
           <Marker
@@ -134,7 +137,7 @@ const App: React.FC<any> = ({ navigation }) => {
         </MapView>
         <RecommendedPath navigation={navigation} />
       </View>
-    )
+    ) : null
   );
 };
 
