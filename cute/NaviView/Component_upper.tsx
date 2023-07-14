@@ -13,8 +13,8 @@ interface Coordinate {
 }
 
 interface GuidanceData {
-  Guidance: string;
-  Distance: number;
+  guidance: string;
+  distance: number;
   xlatatue: number;
   ylatatue: number;
 }
@@ -105,8 +105,8 @@ const Upper = () => {
       ) : (
         guidanceData.map((data, index) => (
           <Text key={index} style={styles.textDetail}>
-            {data.Guidance ? data.Guidance : 'No Guidance'}:{' '}
-            {data.Distance ? data.Distance : 'No Distance'}
+            {data.guidance ? data.guidance : 'No guidance'}:{' '}
+            {data.distance ? data.distance : 'No distance'}
           </Text>
         ))
       )}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   textDetail: {
-    fontSize: 45,
+    fontSize: 10,
     color: 'blue',
   },
 });
