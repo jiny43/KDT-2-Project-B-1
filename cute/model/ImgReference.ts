@@ -6,6 +6,7 @@ export interface PhotosType {
 }
 
 function ImgReference(object: PhotosType, API_KEY: string): string {
+  console.log('여기는 모듈', object);
   const {photo_reference} = object;
   let url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo_reference}&key=${API_KEY}`;
   return url;
