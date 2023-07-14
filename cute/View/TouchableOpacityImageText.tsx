@@ -105,9 +105,6 @@ const ModalSelectThree = ({
         style={{
           flex: 1,
           flexWrap: 'wrap',
-          borderWidth: 1,
-          borderColor: 'red',
-          borderStyle: 'solid',
         }}>
         <RecommendList
           region={selectRegion}
