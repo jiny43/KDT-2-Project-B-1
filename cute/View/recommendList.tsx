@@ -72,8 +72,6 @@ const RecommendList = ({
     });
   }, []);
 
-  console.log('fetchData', fetchData);
-
   const regionData = (name: string, location: LatLngTypes) => {
     return {
       name: name,
