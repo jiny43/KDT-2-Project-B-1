@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import RecommendList from './recommendList';
 
 export type MetroCityList =
   | 'busan'
@@ -14,7 +15,11 @@ export type regionImgType = {
   [key in MetroCityList]: Array<[string, string, any]>;
 };
 
-const ModalSelectThree = (props: {region: MetroCityList}) => {
+const ModalSelectThree = (props: {region: MetroCityList}, navigation: any) => {
+  const [selectFood, setSelectFood] = React.useState<string>('');
+  const [selectRegion, setSelectRegion] =
+    React.useState<MetroCityList>('daejeon');
+
   const regionImgSourceRequire: regionImgType = {
     busan: [
       ['DongnaePajeon', '동래파전', require('../Img/Busan_DongnaePajeon.png')],
@@ -66,22 +71,41 @@ const ModalSelectThree = (props: {region: MetroCityList}) => {
     'incheon',
     'ulsan',
   ];
+  const recommendEle = (valueFirst: string, valueSecond: MetroCityList) => {
+    setSelectFood(valueFirst);
+    setSelectRegion(valueSecond);
+  };
 
   return (
-    <>
-      {regionList.map(ele => {
-        if (props.region === ele) {
-          return regionImgSourceRequire[ele].map(element => {
-            return (
-              <TouchableOpacity key={element[0]} style={{height: 100}}>
-                <Image source={element[2]} style={ModalStyle.imgStyle} />
-                <Text style={ModalStyle.textStyle}>{element[1]}</Text>
-              </TouchableOpacity>
-            );
-          });
-        }
-      })}
-    </>
+    <View style={{height: '100%'}}>
+      <View style={ModalStyle.viewStyle}>
+        {regionList.map(ele => {
+          if (props.region === ele) {
+            return regionImgSourceRequire[ele].map(element => {
+              return (
+                <TouchableOpacity
+                  key={element[0]}
+                  style={{height: 100}}
+                  onPress={() => recommendEle(element[1], ele)}>
+                  <Image source={element[2]} style={ModalStyle.imgStyle} />
+                  <Text style={ModalStyle.textStyle}>{element[1]}</Text>
+                </TouchableOpacity>
+              );
+            });
+          }
+        })}
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexWrap: 'wrap',
+          borderWidth: 1,
+          borderColor: 'red',
+          borderStyle: 'solid',
+        }}>
+        <RecommendList region={selectRegion} keywords={selectFood} />
+      </View>
+    </View>
   );
 };
 
@@ -95,6 +119,11 @@ const ModalStyle = StyleSheet.create({
   textStyle: {
     flex: 1,
     textAlign: 'center',
+  },
+  viewStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    // flex: 1,
   },
 });
 
