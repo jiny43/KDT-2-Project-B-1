@@ -1,24 +1,38 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import axios from 'axios';
 
 const RecommendedPath: React.FC<any> = ({navigation}) => {
   const [pathData, setPathData] = useState({hours: 0, minutes: 0, distance: 0});
 
   useEffect(() => {
-    const fetchPathData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://10.0.2.2:3000/kakao-api/duration');
-        const data = await response.json();
-        const hours = Math.floor(data.duration / 3600); // 시간
-        const minutes = Math.floor((data.duration % 3600) / 60); // 분
-        const distanceInKm = Number((data.distance / 1000).toFixed(2)); // 미터를 킬로미터로 변환하여 소수점 2자리까지 표시
+        const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
+        const destination = '127.3234,36.3521'; // 목적지
+        const origin = '126.705278,37.456111'; // 출발지
+
+        const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
+        const headers = {
+          Authorization: `KakaoAK ${kakaoApiKey}`,
+          'Content-Type': 'application/json',
+        };
+
+        const response = await axios.get(url, {headers});
+        const data = response.data;
+        const sections = data.routes[0].sections;
+        const summary = data.routes[0].summary;
+
+        const hours = Math.floor(summary.duration / 3600); // 시간
+        const minutes = Math.floor((summary.duration % 3600) / 60); // 분
+        const distanceInKm = Number((summary.distance / 1000).toFixed(2)); // 미터를 킬로미터로 변환하여 소수점 2자리까지 표시
         setPathData({hours, minutes, distance: distanceInKm});
       } catch (error) {
-        // console.log("Error fetching path data:", error);
+        console.error(`Error: ${error}`);
       }
     };
 
-    fetchPathData();
+    fetchData();
   }, []);
 
   return (
@@ -26,11 +40,10 @@ const RecommendedPath: React.FC<any> = ({navigation}) => {
       <TouchableOpacity
         style={{flex: 1}}
         onPress={() => {
-          // ('이동하고 싶은 App.tsx에 지정한 name')
           navigation.navigate('yoone');
         }}>
         <Text style={styles.title}>내비 추천</Text>
-        <Text style={styles.distanceText}>예상 운전 거리:</Text>
+        <Text style={styles.distanceText}>예상 운전 시간:</Text>
         <Text
           style={
             styles.duration

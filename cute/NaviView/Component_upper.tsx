@@ -92,7 +92,7 @@ const Upper = () => {
         // }
         console.log(data);
         console.log('여기는 가이드 데이터입니다.');
-        setGuidanceData(data);
+        setGuidanceData([data[7]]);
       }
     };
     fetchDirections();
@@ -105,8 +105,9 @@ const Upper = () => {
       ) : (
         guidanceData.map((data, index) => (
           <Text key={index} style={styles.textDetail}>
-            {data.guidance ? data.guidance : 'No guidance'}:{' '}
+            전방 {data.guidance ? data.guidance : 'No guidance'}:
             {data.distance ? data.distance : 'No distance'}
+            m앞
           </Text>
         ))
       )}
@@ -116,18 +117,21 @@ const Upper = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '30%',
+    height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,
+    backgroundColor: 'rgba(255,255,255,0.9)',
   },
   guidanceItem: {
+    opacity: 50,
     // 여기에 각 가이드라인 항목의 스타일을 설정합니다...
     margin: 5,
   },
   textDetail: {
-    fontSize: 10,
+    fontSize: 20,
     color: 'blue',
+    fontWeight: 'bold',
   },
 });
 

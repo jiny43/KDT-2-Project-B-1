@@ -5,6 +5,8 @@ import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import {View} from 'react-native';
 import SelectedPath from './SelectedPath';
 import RecommendedPath from './RecommendedPath';
+import Button from './Button';
+import axios from 'axios';
 
 // 좌표 타입
 interface Coordinate {
@@ -27,6 +29,7 @@ const App: React.FC<any> = ({navigation}) => {
     null,
   );
   const [coordinates, setCoordinates] = useState<Point[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const checkLocationPermission = async () => {
@@ -52,12 +55,12 @@ const App: React.FC<any> = ({navigation}) => {
           setInitialPosition({
             latitude,
             longitude,
-            latitudeDelta: 0.5,
-            longitudeDelta: 0.5,
+            latitudeDelta: 2,
+            longitudeDelta: 2,
           });
 
           // 경로 정보 가져오기
-          fetch('http://10.0.2.2:3000/kakao-api/duration')
+          fetch('http://10.0.2.2:3000/kakao-api/directions/:origin')
             .then(response => response.json())
             .then(data => {
               const {polyline} = data;
@@ -82,6 +85,16 @@ const App: React.FC<any> = ({navigation}) => {
     checkLocationPermission();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentIndex < coordinates.length - 1) {
+        setCurrentIndex(prevIndex => prevIndex + 1);
+      }
+    }, 5); // 0.1초마다 폴리라인 좌표를 추가
+
+    return () => clearInterval(interval);
+  }, [coordinates]);
+
   return (
     initialPosition && (
       <View style={{flex: 1}}>
@@ -93,10 +106,9 @@ const App: React.FC<any> = ({navigation}) => {
           {coordinates.length > 0 && (
             <>
               <Polyline
-                coordinates={coordinates}
+                coordinates={coordinates.slice(0, currentIndex + 1)}
                 strokeWidth={5}
                 strokeColor="#4A72D6"
-                // strokeColor="orange"
               />
               <Marker
                 coordinate={coordinates[0]} // 출발지 좌표
@@ -113,6 +125,7 @@ const App: React.FC<any> = ({navigation}) => {
         </MapView>
         {/* 네비게이션 사용할 RecommendedPath에 네비게이션 인자 전달 */}
         <RecommendedPath navigation={navigation} />
+        <Button name="주차장 우선"></Button>
       </View>
     )
   );
