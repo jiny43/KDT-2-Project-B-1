@@ -1,24 +1,134 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
+import Geolocation from '@react-native-community/geolocation';
+import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import {getDistance} from 'geolib';
 
-export const ComponentUpper: React.FC = () => {
+interface Coordinate {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
+
+interface GuidanceData {
+  Guidance: string;
+  Distance: number;
+  xlatatue: number;
+  ylatatue: number;
+}
+
+const Upper = () => {
+  const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
+    null,
+  );
+  const [guidanceData, setGuidanceData] = useState<GuidanceData[]>([]);
+
+  useEffect(() => {
+    console.log(guidanceData);
+    console.log('여기는 마운트 될때마다 바뀝니다.');
+    const checkLocationPermission = async () => {
+      const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+      if (res === RESULTS.DENIED) {
+        const res2 = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        if (res2 === RESULTS.GRANTED) {
+          getLocation();
+        }
+      } else if (res === RESULTS.GRANTED) {
+        getLocation();
+      }
+    };
+
+    const getLocation = () => {
+      Geolocation.watchPosition(
+        position => {
+          const {latitude, longitude} = position.coords;
+          const newRegion: Coordinate = {
+            latitude,
+            longitude,
+            latitudeDelta: 0.4,
+            longitudeDelta: 0.4,
+          };
+          console.log(latitude, longitude);
+          console.log('여기는 라따뚜이입니다.');
+          setInitialPosition(newRegion);
+        },
+        error => {
+          console.log(error.code, error.message);
+        },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      );
+    };
+
+    checkLocationPermission();
+  }, [guidanceData]);
+
+  useEffect(() => {
+    const fetchDirections = async () => {
+      if (initialPosition) {
+        const {latitude, longitude} = initialPosition;
+        const response = await fetch(
+          `http://10.0.2.2:3000/kakao-guidance/guidance/${initialPosition.longitude},${initialPosition.latitude}`,
+        );
+        const data: GuidanceData[] = await response.json();
+
+        // let closeNextData = null;
+        // for (let i = 0; i < data.length; i++) {
+        //   const distance = getDistance(
+        //     {latitude, longitude},
+        //     {latitude: data[i].xlatatue, longitude: data[i].ylatatue},
+        //   );
+
+        //   // 현재 위치에서 가장 가까운 ' 다음' 위치를 찾으면 멈춥니다.
+        //   if (distance <= data[i].Distance) {
+        //     closeNextData = data[i];
+        //     break;
+        //   }r
+        // }
+        // // 가장 가까운 '다음' 위치의
+        // if (closeNextData) {
+        //   setGuidanceData([closeNextData]);
+        // }
+        console.log(data);
+        console.log('여기는 가이드 데이터입니다.');
+        setGuidanceData(data);
+      }
+    };
+    fetchDirections();
+  }, [initialPosition]);
+
   return (
     <View style={styles.container}>
-      <Text>상단 컴포넌트</Text>
-      <Text>카카오 API를 사용하여 불러올 데이터 공간</Text>
+      {guidanceData.length === 0 ? (
+        <Text>Loading...</Text>
+      ) : (
+        guidanceData.map((data, index) => (
+          <Text key={index} style={styles.textDetail}>
+            {data.Guidance ? data.Guidance : 'No Guidance'}:{' '}
+            {data.Distance ? data.Distance : 'No Distance'}
+          </Text>
+        ))
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: '20%', // 상단 컴포넌트는 화면의 20% 차지
-    width: '100%', // 가로로 화면을 꽉 채우기
-    backgroundColor: 'skyblue', // 배경색 지정
-    justifyContent: 'center', // 세로 방향으로 중앙 정렬
-    alignItems: 'center', // 가로 방향으로 중앙 정렬
-    opacity: 0.8,
+    height: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  guidanceItem: {
+    // 여기에 각 가이드라인 항목의 스타일을 설정합니다...
+    margin: 5,
+  },
+  textDetail: {
+    fontSize: 45,
+    color: 'blue',
   },
 });
 
-export default ComponentUpper;
+export default Upper;

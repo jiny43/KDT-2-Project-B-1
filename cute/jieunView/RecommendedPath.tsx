@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
-const RecommendedPath = () => {
+const RecommendedPath: React.FC<any> = ({navigation}) => {
   const [pathData, setPathData] = useState({hours: 0, minutes: 0, distance: 0});
 
   useEffect(() => {
@@ -23,20 +23,27 @@ const RecommendedPath = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>내비 추천</Text>
-      <Text style={styles.distanceText}>예상 운전 거리:</Text>
-      <Text
-        style={
-          styles.duration
-        }>{`${pathData.hours}시 ${pathData.minutes}분`}</Text>
-
-      <View style={styles.contentContainer}>
+      <TouchableOpacity
+        style={{flex: 1}}
+        onPress={() => {
+          // ('이동하고 싶은 App.tsx에 지정한 name')
+          navigation.navigate('yoone');
+        }}>
+        <Text style={styles.title}>내비 추천</Text>
         <Text style={styles.distanceText}>예상 운전 거리:</Text>
-        {pathData && (
-          <Text style={styles.distance}>{`${pathData.distance} km`}</Text>
-        )}
-        <Image source={require('../Img/ori_nav.png')} style={styles.image} />
-      </View>
+        <Text
+          style={
+            styles.duration
+          }>{`${pathData.hours}시 ${pathData.minutes}분`}</Text>
+
+        <View style={styles.contentContainer}>
+          <Text style={styles.distanceText}>예상 운전 거리:</Text>
+          {pathData && (
+            <Text style={styles.distance}>{`${pathData.distance} km`}</Text>
+          )}
+          <Image source={require('../Img/ori_nav.png')} style={styles.image} />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

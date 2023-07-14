@@ -1,5 +1,3 @@
-import requests, pprint
-
 import requests
 import json
 
@@ -12,8 +10,8 @@ def fetch_path_data():
         }
 
         params = {
-            "origin": "127.11015314141542,37.39472714688412",  # 출발지
-            "destination": "127.10824367964793,37.401937080111644",  # 목적지
+            "origin": "126.9771,37.5648",  # 출발지
+            "destination": "126.9883,37.5710",  # 목적지
             "waypoints": "",  # 경유지
             "priority": "RECOMMEND",  # 경로 탐색 우선순위 옵션
             "car_fuel": "GASOLINE",  # 차량 유종 정보
@@ -27,10 +25,34 @@ def fetch_path_data():
             headers=headers,
             params=params,
         )
-        data = json.loads(response.text)
-        print("Fetched path data:", data)
+        data = response.json()
+
+        # 가이드 정보 추출
+        guides = []
+        for section in data["routes"][0]["sections"]:
+            guides.extend(section["guides"])
+
+        # 출력
+        for guide in guides:
+            if (
+                "guidance" in guide
+                and "distance" in guide
+                and "x" in guide
+                and "y" in guide
+            ):  # 'guidance'와 'distance' 키가 존재하는지 확인
+                print(
+                    "Guidance:",
+                    guide["guidance"],
+                    " Distance:",
+                    guide["distance"],
+                    "x좌표:",
+                    guide["x"],
+                    "y좌표:",
+                    guide["y"],
+                )
+
     except Exception as e:
-        print("Error fetching path data:", e)
+        print(f"An error occurred: {e}")
 
 
 fetch_path_data()

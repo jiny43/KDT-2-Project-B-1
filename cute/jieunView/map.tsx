@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import MapView, { Polyline, Marker } from 'react-native-maps';
+import React, {useState, useEffect} from 'react';
+import MapView, {Polyline, Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
-import { View } from 'react-native';
+import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import {View} from 'react-native';
 import SelectedPath from './SelectedPath';
+import RecommendedPath from './RecommendedPath';
 
 // 좌표 타입
 interface Coordinate {
@@ -19,8 +20,12 @@ interface Point {
   longitude: number;
 }
 
-const App = () => {
-  const [initialPosition, setInitialPosition] = useState<Coordinate | null>(null);
+// 네비게이션 사용을 위해 매개변수에 네비게이션을 넣어주세요.
+// App.tsx 에 작성하신 페이지부터 네비게이션 기능 사용을 할 최종 목적지까지 navigation을 전달해줘야 사용 가능합니다.
+const App: React.FC<any> = ({navigation}) => {
+  const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
+    null,
+  );
   const [coordinates, setCoordinates] = useState<Point[]>([]);
 
   useEffect(() => {
@@ -40,7 +45,7 @@ const App = () => {
     const getLocation = async () => {
       Geolocation.getCurrentPosition(
         position => {
-          const { latitude, longitude } = position.coords;
+          const {latitude, longitude} = position.coords;
 
           console.log(position.coords); // 위치 정보 출력
 
@@ -53,25 +58,24 @@ const App = () => {
 
           // 경로 정보 가져오기
           fetch('http://10.0.2.2:3000/kakao-api/duration')
-          .then(response => response.json())
-          .then(data => {
-            const { polyline } = data;
-            const parsedCoordinates = polyline.map((point: number[]) => ({
-              latitude: point[1],
-              longitude: point[0],
-            }));
-            setCoordinates(parsedCoordinates);
-            console.log('경로 데이터 가져옴:', data);
-          })
-          .catch(error => {
-            console.log('경로 데이터를 가져오는 중 오류 발생:', error);
-          });
-        
+            .then(response => response.json())
+            .then(data => {
+              const {polyline} = data;
+              const parsedCoordinates = polyline.map((point: number[]) => ({
+                latitude: point[1],
+                longitude: point[0],
+              }));
+              setCoordinates(parsedCoordinates);
+              console.log('경로 데이터 가져옴:', data);
+            })
+            .catch(error => {
+              console.log('경로 데이터를 가져오는 중 오류 발생:', error);
+            });
         },
         error => {
           console.log(error.code, error.message);
         },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     };
 
@@ -80,13 +84,12 @@ const App = () => {
 
   return (
     initialPosition && (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <SelectedPath path="대전 -> 대구(팔공막창)" />
         <MapView
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           initialRegion={initialPosition}
-          showsUserLocation={true}
-        >
+          showsUserLocation={true}>
           {coordinates.length > 0 && (
             <>
               <Polyline
@@ -108,6 +111,8 @@ const App = () => {
             </>
           )}
         </MapView>
+        {/* 네비게이션 사용할 RecommendedPath에 네비게이션 인자 전달 */}
+        <RecommendedPath navigation={navigation} />
       </View>
     )
   );

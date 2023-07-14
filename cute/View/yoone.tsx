@@ -1,10 +1,13 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {View, StyleSheet, Image, ImageRequireSource} from 'react-native';
-import MapView, {Polyline, Marker} from 'react-native-maps';
+// App.tsx
+import {useState, useEffect} from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import React, {useRef} from 'react';
+import {View, StyleSheet, Image, ImageRequireSource} from 'react-native';
+import MapView, {Polyline, Marker} from 'react-native-maps';
 import ComponentUnder from '../NaviView/Component_under';
 import ComponentUpper from '../NaviView/Component_upper';
+
 // 타입을 지정, 위도 경도와 델타값의 타입을 number로 지정
 interface Coordinate {
   latitude: number;
@@ -106,6 +109,8 @@ const App = () => {
           `http://10.0.2.2:3000/kakao-api/directions/${initialPosition.longitude},${initialPosition.latitude}`,
         );
         const data = await response.json();
+        // 데이터값은 좌표의 값으로 확인되었다.
+        console.log(data);
 
         const transformedCoordinates = data.map((coord: [number, number]) => ({
           latitude: coord[1],
@@ -167,6 +172,8 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+    minWidth: 200,
+    minHeight: 200,
   },
   marker: {
     width: 30,
@@ -176,100 +183,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
-// import React, {useState, useEffect} from 'react';
-// import MapView, {Polyline} from 'react-native-maps';
-// import Geolocation from '@react-native-community/geolocation';
-// import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
-
-// interface Coordinate {
-//   latitude: number;
-//   longitude: number;
-//   latitudeDelta: number;
-//   longitudeDelta: number;
-// }
-
-// interface Point {
-//   latitude: number;
-//   longitude: number;
-// }
-
-// const App = () => {
-//   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
-//     null,
-//   );
-//   const [coordinates, setCoordinates] = useState<Point[]>([]);
-
-//   const fetchCoordinates = async (position: Coordinate) => {
-//     const response = await fetch(
-//       `http://10.0.2.2:3000/kakao-api/directions?origin=${position.latitude},${position.longitude}`,
-//     );
-//     const data = await response.json();
-
-//     const transformedCoordinates = data.map((coord: [number, number]) => ({
-//       latitude: coord[1],
-//       longitude: coord[0],
-//     }));
-
-//     setCoordinates(transformedCoordinates);
-//     console.log(transformedCoordinates);
-//   };
-//   const getLocation = () => {
-//     Geolocation.getCurrentPosition(
-//       position => {
-//         const {latitude, longitude} = position.coords;
-
-//         console.log(position.coords);
-
-//         const newInitialPosition = {
-//           latitude,
-//           longitude,
-//           latitudeDelta: 0.005,
-//           longitudeDelta: 0.005,
-//         };
-
-//         setInitialPosition(newInitialPosition);
-
-//         fetchCoordinates(newInitialPosition);
-//       },
-//       error => {
-//         console.log(error.code, error.message);
-//       },
-//       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-//     );
-//   };
-
-//   const checkLocationPermission = async () => {
-//     const res = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-
-//     if (res === RESULTS.DENIED) {
-//       const res2 = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-//       if (res2 === RESULTS.GRANTED) {
-//         getLocation();
-//       }
-//     } else if (res === RESULTS.GRANTED) {
-//       getLocation();
-//     }
-//   };
-
-//   useEffect(() => {
-//     checkLocationPermission();
-//   }, []);
-
-//   return (
-//     initialPosition && (
-//       <MapView
-//         style={{width: '100%', height: '100%'}}
-//         initialRegion={initialPosition}
-//         showsUserLocation={true}>
-//         <Polyline
-//           coordinates={coordinates}
-//           strokeColor="#000"
-//           strokeWidth={3}
-//         />
-//       </MapView>
-//     )
-//   );
-// };
-
-// export default App;

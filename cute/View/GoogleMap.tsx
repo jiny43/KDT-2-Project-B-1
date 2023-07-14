@@ -1,21 +1,26 @@
-import {Image, Text, View} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {Text, View} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MetroCoord from '../model/MetropolitanCoordinate.json';
 import addLatLngDate, {
   latLngDeltaDataType,
 } from '../model/mapviewInitialRegionData';
 import React, {useState} from 'react';
 import MeongOriModal from './MeongOriModal';
+import MetroMarker from './MetroMarker';
 
-const GoogleMap = () => {
+// 네비게이션 사용을 위해 매개변수에 네비게이션을 넣어주세요.
+// App.tsx 에 작성하신 페이지부터 네비게이션 기능 사용을 할 최종 목적지까지 navigation을 전달해줘야 사용 가능합니다.
+const GoogleMap: React.FC<any> = ({navigation}) => {
   const [windowBool, setWindowBool] = useState<boolean>(false);
   const [isMapReady, setIsMapReady] = useState<boolean>(false);
+  const [regionInfo, setRegionInfo] = useState<string>('');
   const latLngDeltaData: latLngDeltaDataType = {
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.5,
+    latitudeDelta: 3,
+    longitudeDelta: 3,
   };
-  const openModal = () => {
+  const openModal = (regionInfo: string) => {
     setWindowBool(true);
+    setRegionInfo(regionInfo);
   };
   const closeModal = () => {
     setWindowBool(false);
@@ -45,20 +50,17 @@ const GoogleMap = () => {
           }}
           provider={PROVIDER_GOOGLE}
           initialRegion={addLatLngDate(MetroCoord.daejeon, latLngDeltaData)}>
-          <Marker
-            key={Object.keys(MetroCoord.daejeon)[0]}
-            coordinate={MetroCoord.daejeon}
-            description={'대전 소보로빵'}
-            onPress={openModal}>
-            <Image
-              source={require('../Img/Daejeon_Twigim-soboro-bread.png')}
-              style={{width: 70, height: 70}}
-            />
-          </Marker>
+          <MetroMarker openModal={openModal} />
         </MapView>
       </View>
-      <MeongOriModal closeModal={closeModal} windowBool={windowBool} />
+      <MeongOriModal
+        closeModal={closeModal}
+        windowBool={windowBool}
+        regionInfo={regionInfo}
+        navigation={navigation}
+      />
     </>
   );
 };
+
 export default GoogleMap;
