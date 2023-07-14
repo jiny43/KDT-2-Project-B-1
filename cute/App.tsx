@@ -5,6 +5,7 @@ import GoogleMap from './View/GoogleMap';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Yoone from './View/yoone';
+import RecommendList from './View/recommendList';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,12 @@ function App() {
         <Stack.Screen
           name="yoone"
           component={Yoone}
+          options={{headerShown: false}}
+        />
+        {/* 남한페이지 */}
+        <Stack.Screen
+          name="recommendList"
+          component={RecommendList}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

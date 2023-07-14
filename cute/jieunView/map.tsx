@@ -15,11 +15,13 @@ interface Coordinate {
   longitudeDelta: number;
 }
 
-const App: React.FC<any> = ({navigation}) => {
+const App: React.FC<any> = ({navigation, regionData}) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
     null,
   );
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
+
+  console.log(regionData);
 
   //현재 위치 권한 설정
   useEffect(() => {
@@ -60,7 +62,7 @@ const App: React.FC<any> = ({navigation}) => {
     checkLocationPermission();
   }, []);
 
-//데이터 받아오기
+  //데이터 받아오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,7 +70,7 @@ const App: React.FC<any> = ({navigation}) => {
         //?임의의 출발지와 도착지
         //todo 선택한 값으로 변경해야함
         const origin = '127.3234,36.3521';
-        const destination = '126.705278,37.456111'; 
+        const destination = '126.705278,37.456111';
 
         const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
         const headers = {
@@ -107,48 +109,45 @@ const App: React.FC<any> = ({navigation}) => {
 
     fetchData();
   }, []);
-// console.log(coordinates);
-//coordinates확인완료
+  // console.log(coordinates);
+  //coordinates확인완료
 
-//todo 선택한 값으로 변경해야함
-//? 도착지정보 받기전에 테스트 '126.705278,37.456111'/'127.3234,36.3521'
-const destinationLatitude = 37.456111; // 도착지 위도 값 설정
-const destinationLongitude = 126.705278; // 도착지 경도 값 설정
-const originLatitude = 36.3521;
-const originLongitude = 127.3234;
+  //todo 선택한 값으로 변경해야함
+  //? 도착지정보 받기전에 테스트 '126.705278,37.456111'/'127.3234,36.3521'
+  const destinationLatitude = 37.456111; // 도착지 위도 값 설정
+  const destinationLongitude = 126.705278; // 도착지 경도 값 설정
+  const originLatitude = 36.3521;
+  const originLongitude = 127.3234;
 
-
-  return (
-    initialPosition ? (
-      <View style={{ flex: 1 }}>
-        <SelectedPath path="대전 -> 도착지주세요" />
-        <MapView
-          style={{ flex: 1 }}
-          initialRegion={initialPosition}
-          showsUserLocation={true}
-        >
-          {/* coordinates 의 위도 경도가 반대로돼있음 -> 위도,경도를 변경해주는 작업 */}
-          {coordinates.length > 0 && (
-            <Polyline
+  return initialPosition ? (
+    <View style={{flex: 1}}>
+      <SelectedPath path="대전 -> 도착지주세요" />
+      <MapView
+        style={{flex: 1}}
+        initialRegion={initialPosition}
+        showsUserLocation={true}>
+        {/* coordinates 의 위도 경도가 반대로돼있음 -> 위도,경도를 변경해주는 작업 */}
+        {coordinates.length > 0 && (
+          <Polyline
             coordinates={coordinates.map(coord => ({
               latitude: coord.longitude,
               longitude: coord.latitude,
             }))}
             strokeWidth={5}
             strokeColor="#4641D9"
-            />
-          )}
-          {/* 출발지 마커 */}
-          <Marker
-            coordinate={{
-              latitude: originLatitude,
-              longitude: originLongitude,
-            }}
-            title="출발지"
-            description="현재 위치"
           />
-          {/* 도착지 마커 */}
-          <Marker
+        )}
+        {/* 출발지 마커 */}
+        <Marker
+          coordinate={{
+            latitude: originLatitude,
+            longitude: originLongitude,
+          }}
+          title="출발지"
+          description="현재 위치"
+        />
+        {/* 도착지 마커 */}
+        <Marker
           coordinate={{
             latitude: destinationLatitude,
             longitude: destinationLongitude,
@@ -157,12 +156,11 @@ const originLongitude = 127.3234;
           title="도착지"
           description="데이터주세여"
         />
-        </MapView>
-        <RecommendedPath navigation={navigation} />
-        <Button name='주차장우선'/>
-      </View>
-    ) : null
-  );
+      </MapView>
+      <RecommendedPath navigation={navigation} />
+      <Button name="주차장우선" />
+    </View>
+  ) : null;
 };
 
 export default App;

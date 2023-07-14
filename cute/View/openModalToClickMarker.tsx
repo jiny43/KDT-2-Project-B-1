@@ -15,14 +15,16 @@ function OpenModalToClickMarker({
   return (
     <>
       <View style={ModalStyle.viewContainerStyle}>
-        <ModalSelectThree region={regionInfo as MetroCityList} />
+        <ModalSelectThree
+          forRegion={regionInfo as MetroCityList}
+          navigation={navigation}
+        />
         <View style={{flex: 3}}>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => {
               // ('이동하고 싶은 App.tsx에 지정한 name')
               navigation.navigate('map');
-            }}>
-          </TouchableOpacity> */}
+            }}></TouchableOpacity>
         </View>
       </View>
       <View style={ModalStyle.buttonStyle}>
