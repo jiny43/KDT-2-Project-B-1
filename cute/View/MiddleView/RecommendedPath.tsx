@@ -4,8 +4,7 @@ import axios from 'axios';
 
 const RecommendedPath: React.FC<any> = ({navigation}) => {
   const [pathData, setPathData] = useState({hours: 0, minutes: 0, distance: 0});
-  console.log()
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
