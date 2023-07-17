@@ -15,13 +15,16 @@ interface Coordinate {
   longitudeDelta: number;
 }
 
-const App: React.FC<any> = ({navigation, regionData}) => {
+const App: React.FC<any> = ({navigation, route}) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
     null,
   );
+  const { name, latitude, longitude  } = route.params;
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
-  console.log(regionData);
+  console.log(name, latitude,longitude );
+
+  
 
   //현재 위치 권한 설정
   useEffect(() => {
@@ -61,6 +64,8 @@ const App: React.FC<any> = ({navigation, regionData}) => {
 
     checkLocationPermission();
   }, []);
+
+
 
   //데이터 받아오기
   useEffect(() => {
@@ -121,7 +126,7 @@ const App: React.FC<any> = ({navigation, regionData}) => {
 
   return initialPosition ? (
     <View style={{flex: 1}}>
-      <SelectedPath path="대전 -> 도착지주세요" />
+      <SelectedPath path={name} />
       <MapView
         style={{flex: 1}}
         initialRegion={initialPosition}
@@ -154,7 +159,7 @@ const App: React.FC<any> = ({navigation, regionData}) => {
           }}
           //todo 선택한 값으로 변경해야함
           title="도착지"
-          description="데이터주세여"
+          description={name}
         />
       </MapView>
       <RecommendedPath navigation={navigation} />

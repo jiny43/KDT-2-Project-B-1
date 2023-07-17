@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import Map from './jieunView/map';
+import Map from './View/MiddleView/map';
 import GoogleMap from './View/GoogleMap';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
