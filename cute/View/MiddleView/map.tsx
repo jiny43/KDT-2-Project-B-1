@@ -20,9 +20,8 @@ const App: React.FC<any> = ({navigation, route}) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
     null,
   );
-  const { name, location  } = route.params;
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
-
+  const { name, location  } = route.params;
   console.log(name, location);
   // console.log(location.latitude);
   // console.log(location.longitude);
@@ -159,7 +158,7 @@ const App: React.FC<any> = ({navigation, route}) => {
           description={name}
         />
       </MapView>
-      <RecommendedPath navigation={navigation} />
+      <RecommendedPath navigation={navigation} location ={location} />
       <Button name="주차장우선" />
     </View>
   ) : null;

@@ -2,15 +2,17 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 
-const RecommendedPath: React.FC<any> = ({navigation}) => {
+const RecommendedPath: React.FC<any> = ({navigation, location}) => {
   const [pathData, setPathData] = useState({hours: 0, minutes: 0, distance: 0});
-  
+  // console.log(location);
+  // map에서 전달받은 props location 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
-        const destination = '127.3234,36.3521'; // 목적지
-        const origin = '126.705278,37.456111'; // 출발지
+        const origin = [127.39404833333333,36.339816666666664];
+        const destination = `${location.longitude},${location.latitude}`;
 
         const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
         const headers = {
