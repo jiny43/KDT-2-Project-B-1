@@ -13,16 +13,20 @@ interface Coordinate {
   longitude: number;
   latitudeDelta: number;
   longitudeDelta: number;
+  
 }
 
 const App: React.FC<any> = ({navigation, route}) => {
   const [initialPosition, setInitialPosition] = useState<Coordinate | null>(
     null,
   );
-  const { name, latitude, longitude  } = route.params;
+  const { name, location  } = route.params;
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
 
-  console.log(name, latitude,longitude );
+  console.log(name, location);
+  // console.log(location.latitude);
+  // console.log(location.longitude);
+  //recommendlist 에서 넘겨받은 값 확인 완료
 
   
 
@@ -72,11 +76,8 @@ const App: React.FC<any> = ({navigation, route}) => {
     const fetchData = async () => {
       try {
         const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
-        //?임의의 출발지와 도착지
-        //todo 선택한 값으로 변경해야함
-        const origin = '127.3234,36.3521';
-        const destination = '126.705278,37.456111';
-
+        const origin = [127.39404833333333,36.339816666666664];
+        const destination = `${location.longitude},${location.latitude}`;
         const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
         const headers = {
           Authorization: `KakaoAK ${kakaoApiKey}`,
@@ -102,7 +103,7 @@ const App: React.FC<any> = ({navigation, route}) => {
                 longitudeDelta: 0.5,
               });
             }
-            // console.log(polyline);
+            // console.log(polyline)
             //확인 완료
           }
         }
@@ -117,12 +118,9 @@ const App: React.FC<any> = ({navigation, route}) => {
   // console.log(coordinates);
   //coordinates확인완료
 
-  //todo 선택한 값으로 변경해야함
-  //? 도착지정보 받기전에 테스트 '126.705278,37.456111'/'127.3234,36.3521'
-  const destinationLatitude = 37.456111; // 도착지 위도 값 설정
-  const destinationLongitude = 126.705278; // 도착지 경도 값 설정
-  const originLatitude = 36.3521;
-  const originLongitude = 127.3234;
+  //todo 중복되는 리터럴값 리팩토링이 필요함
+  const originLatitude = 36.339816666666664;
+  const originLongitude = 127.39404833333333;
 
   return initialPosition ? (
     <View style={{flex: 1}}>
@@ -154,10 +152,9 @@ const App: React.FC<any> = ({navigation, route}) => {
         {/* 도착지 마커 */}
         <Marker
           coordinate={{
-            latitude: destinationLatitude,
-            longitude: destinationLongitude,
+            latitude: location.latitude,
+            longitude: location.longitude
           }}
-          //todo 선택한 값으로 변경해야함
           title="도착지"
           description={name}
         />

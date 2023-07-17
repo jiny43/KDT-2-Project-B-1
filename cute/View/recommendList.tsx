@@ -67,8 +67,10 @@ const RecommendList = ({
             onPress={() => {
               navigation.navigate('map', {
                 name: val.name,
+                location : {
                 latitude: val.geometry.location.latitude,
                 longitude: val.geometry.location.longitude,
+                }
               });
             }}>
             <View style={{margin: 4}}>
