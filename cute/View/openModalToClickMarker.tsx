@@ -1,7 +1,6 @@
 import {Button, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import ModalSelectThree, {MetroCityList} from './TouchableOpacityImageText';
-import RecommendList from './recommendList';
 
 function OpenModalToClickMarker({
   closeModal,
@@ -19,14 +18,6 @@ function OpenModalToClickMarker({
           forRegion={regionInfo as MetroCityList}
           navigation={navigation}
         />
-        <View style={{flex: 3}}>
-          {/* <TouchableOpacity
-            onPress={() => {
-              // ('이동하고 싶은 App.tsx에 지정한 name')
-              navigation.navigate('map');
-            }}>
-          </TouchableOpacity> */}
-        </View>
       </View>
       <View style={ModalStyle.buttonStyle}>
         <Button title="  X  " onPress={closeModal} />

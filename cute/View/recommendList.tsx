@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
-import fetchPlaces, { LocationType } from '../model/searchData';
+import fetchPlaces from '../model/searchData';
 import {Text, View, TouchableOpacity} from 'react-native';
 import coord from '../model/MetropolitanCoordinate.json';
 import {MetroCityList} from './TouchableOpacityImageText';
+import {LatLngTypes} from '../model/mapviewInitialRegionData';
 
 export interface FetchPlacesType {
   business_status: string;
-  geometry: {location:LocationType};
+  geometry: {location: LatLngTypes};
   place_id: string;
   name: string;
   vicinity: string;
@@ -23,11 +24,9 @@ export interface PhotoType {
 }
 
 export interface coordNameType {
-  location?: LocationType;
+  location?: LatLngTypes;
   name?: string;
 }
-
-
 
 const RecommendList = ({
   region,
@@ -68,8 +67,8 @@ const RecommendList = ({
             onPress={() => {
               navigation.navigate('map', {
                 name: val.name,
-                latitude: val.geometry.location.lat,
-                longitude: val.geometry.location.lng,
+                latitude: val.geometry.location.latitude,
+                longitude: val.geometry.location.longitude,
               });
             }}>
             <View style={{margin: 4}}>
