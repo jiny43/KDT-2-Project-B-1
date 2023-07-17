@@ -27,7 +27,7 @@ export const ParkingList = () => {
 
   useEffect(() => {
     // 실시간 위치를 감시하고 변경 시 새로운 데이터 제공
-    const watchID = Geolocation.watchPosition(
+    const watchID = Geolocation.getCurrentPosition(
       // 위치
       position => {
         const {latitude, longitude} = position.coords;
