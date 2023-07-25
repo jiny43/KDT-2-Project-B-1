@@ -75,7 +75,7 @@ const App: React.FC<any> = ({navigation, route}) => {
     const fetchData = async () => {
       try {
         const kakaoApiKey = '9d667c01eb07e9f64c1df5d6156dbbf2'; // 카카오 API 키
-        const origin = [127.39404833333333,36.339816666666664];
+        const origin = `${initialPosition.longitude},${initialPosition.latitude}`;
         const destination = `${location.longitude},${location.latitude}`;
         const url = `https://apis-navi.kakaomobility.com/v1/directions?origin=${origin}&destination=${destination}`;
         const headers = {
@@ -113,13 +113,13 @@ const App: React.FC<any> = ({navigation, route}) => {
     };
 
     fetchData();
-  }, []);
+  }, [initialPosition,location]);
+//!initialPosition이 존재하는 경우에 API를 요청
+//?그렇지않으면 초기 위치값이 null인 상태에서 origin에 할당돼서 좌표값이 전해지지 않음.
+
   // console.log(coordinates);
   //coordinates확인완료
 
-  //todo 중복되는 리터럴값 리팩토링이 필요함
-  const originLatitude = 36.339816666666664;
-  const originLongitude = 127.39404833333333;
 
   return initialPosition ? (
     <View style={{flex: 1}}>
@@ -141,13 +141,13 @@ const App: React.FC<any> = ({navigation, route}) => {
         )}
         {/* 출발지 마커 */}
         <Marker
-          coordinate={{
-            latitude: originLatitude,
-            longitude: originLongitude,
-          }}
-          title="출발지"
-          description="현재 위치"
-        />
+            coordinate={{
+              latitude: initialPosition.latitude,
+              longitude: initialPosition.longitude,
+            }}
+            title="출발지"
+            description="현재 위치"
+          />
         {/* 도착지 마커 */}
         <Marker
           coordinate={{
@@ -158,7 +158,7 @@ const App: React.FC<any> = ({navigation, route}) => {
           description={name}
         />
       </MapView>
-      <RecommendedPath navigation={navigation} location ={location} />
+      <RecommendedPath navigation={navigation} location ={location} origin={initialPosition} />
       <Button name="주차장우선" />
     </View>
   ) : null;
